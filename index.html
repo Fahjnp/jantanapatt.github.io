@@ -173,6 +173,46 @@ footer{padding:2rem 4rem;border-top:.5px solid var(--line);display:flex;justify-
   .pipeline-step{grid-template-columns:1fr;gap:.35rem;padding:.9rem 0}
 }
 
+/* ══════════════════════════════════════════════════════
+   ADDED: Certification Modal Styles & Interactivity
+   ══════════════════════════════════════════════════════ */
+.cert-card {
+  cursor: pointer;
+}
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 1000; 
+  padding-top: 40px; 
+  left: 0; top: 0; width: 100%; height: 100%; 
+  overflow: auto; 
+  background-color: rgba(26, 24, 20, 0.85);
+  backdrop-filter: blur(5px);
+}
+.modal-content {
+  margin: auto; display: block; 
+  max-width: 85%; max-height: 80vh; 
+  object-fit: contain;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+  border: 4px solid var(--white);
+  animation: zoomIn 0.3s ease;
+}
+.close-modal {
+  position: absolute; top: 20px; right: 35px; 
+  color: var(--cream); font-size: 40px; font-weight: bold; 
+  cursor: pointer; transition: color 0.2s;
+}
+.close-modal:hover {
+  color: var(--accent);
+}
+@keyframes zoomIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+@media(max-width: 860px){
+  .modal-content { max-width: 95%; }
+}
+
 </style>
 </head>
 <body>
@@ -281,50 +321,96 @@ footer{padding:2rem 4rem;border-top:.5px solid var(--line);display:flex;justify-
 <section class="cert-section" id="certificates">
   <div class="section-label">Credentials</div>
   <div class="section-title">Certifications</div>
-  <div class="cert-grid">
-    <div class="cert-card">
-      <div class="cert-badge">W3Schools · Feb 2025</div>
-      <div class="cert-name">Excel Certification</div>
-      <div class="cert-meta">Fundamental knowledge of Microsoft Excel</div>
-      <a href="https://verify.w3schools.com/1PMXJL5BYG" target="_blank" class="cert-verify">↗ Verify certificate</a>
-    </div>
-    <div class="cert-card">
-      <div class="cert-badge">W3Schools · Feb 2025</div>
-      <div class="cert-name">Certified SQL Developer</div>
-      <div class="cert-meta">Fundamental knowledge of SQL &amp; web data querying</div>
-      <a href="https://verify.w3schools.com/65W6B4CAH" target="_blank" class="cert-verify">↗ Verify certificate</a>
-    </div>
-    <div class="cert-card">
-      <div class="cert-badge">DataRockie · Jan 2025</div>
-      <div class="cert-name">Data Analyst Manifesto</div>
-      <div class="cert-meta">Certificate of Graduation — Serial: cert_jy79cpn3</div>
-    </div>
-    <div class="cert-card">
-      <div class="cert-badge">DataRockie · Jan 2025</div>
-      <div class="cert-name">Prompt Design with Bard AI</div>
-      <div class="cert-meta">Certificate of Graduation — Serial: cert_xr4hdgj1</div>
-    </div>
-    <div class="cert-card">
-      <div class="cert-badge">DataRockie · Jan 2025</div>
-      <div class="cert-name">R Crash Course</div>
-      <div class="cert-meta">Certificate of Completion — No: cert_5hwx2h12</div>
-    </div>
-    <div class="cert-card">
-      <div class="cert-badge">DataRockie · Dec 2024</div>
-      <div class="cert-name">Google Sheets Crash Course</div>
-      <div class="cert-meta">Certificate of Completion — No: cert_sdpwz225</div>
-    </div>
-    <div class="cert-card">
-      <div class="cert-badge">PMI · Nov 2024</div>
-      <div class="cert-name">Generative AI Overview for Project Managers</div>
-      <div class="cert-meta">Project Management Institute — Certificate of Completion</div>
-    </div>
-    <div class="cert-card">
-      <div class="cert-badge">DataRockie · Aug 2024</div>
-      <div class="cert-name">Mini Data Science Bootcamp 2023</div>
-      <div class="cert-meta">Certificate of Graduation — Serial: cert_09bfc8l9</div>
-    </div>
+<div class="cert-grid">
+
+  <div class="cert-card" data-img="Certificate Excel - W3shool .pdf">
+    <div class="cert-badge">W3Schools · Feb 2025</div>
+    <div class="cert-name">Excel Certification</div>
+    <div class="cert-meta">Fundamental knowledge of Microsoft Excel [cite: 11]</div>
+    <a href="https://verify.w3schools.com/1PMXJL5BYG" target="_blank" class="cert-verify" onclick="event.stopPropagation();">↗ Verify certificate</a>
   </div>
+
+  <div class="cert-card" data-img="Certificate SQL - W3shool .pdf">
+    <div class="cert-badge">W3Schools · Feb 2025</div>
+    <div class="cert-name">Certified SQL Developer</div>
+    <div class="cert-meta">Fundamental knowledge of web development using SQL [cite: 28]</div>
+    <a href="https://verify.w3schools.com/65W6B4CAH" target="_blank" class="cert-verify" onclick="event.stopPropagation();">↗ Verify certificate</a>
+  </div>
+
+  <div class="cert-card" data-img="Certificate R W3shool.pdf">
+    <div class="cert-badge">W3Schools · Apr 2025</div>
+    <div class="cert-name">Certified R Developer</div>
+    <div class="cert-meta">Passed the W3Schools R certification exam at the Professional level [cite: 45, 49]</div>
+    <a href="https://verify.w3schools.com/1PSVEEEL9Q" target="_blank" class="cert-verify" onclick="event.stopPropagation();">↗ Verify certificate</a>
+  </div>
+
+  <div class="cert-card" data-img="Data Analyst .pdf">
+    <div class="cert-badge">SKILLKAMP &amp; FTI ACADEMY · Mar 2025</div>
+    <div class="cert-name">Data Analyst Digital Skill Test</div>
+    <div class="cert-meta">Passed assessment with total score of 90.00 / 150</div>
+  </div>
+
+  <div class="cert-card" data-img="Digital and Performance Marketer.pdf">
+    <div class="cert-badge">SKILLKAMP &amp; FTI ACADEMY · Mar 2025</div>
+    <div class="cert-name">Digital and Performance Marketer Digital Skill Test</div>
+    <div class="cert-meta">Passed assessment with total score of 90.00 / 150</div>
+  </div>
+
+  <div class="cert-card" data-img="Certificate Data Analyst Manifesto.pdf">
+    <div class="cert-badge">DataRockie · Jan 2025</div>
+    <div class="cert-name">Data Analyst Manifesto</div>
+    <div class="cert-meta">Certificate of Graduation — Serial No. cert_jy79cpn3 [cite: 72, 78, 79]</div>
+  </div>
+
+  <div class="cert-card" data-img="Certificate Prompt Design with Bard AI .pdf">
+    <div class="cert-badge">DataRockie · Jan 2025</div>
+    <div class="cert-name">Prompt Design with Bard AI</div>
+    <div class="cert-meta">Certificate of Graduation — Serial No. cert_xr4hdgj1 [cite: 82, 88, 89]</div>
+  </div>
+
+  <div class="cert-card" data-img="Certificate R Crash Course.pdf">
+    <div class="cert-badge">DataRockie · Jan 2025</div>
+    <div class="cert-name">R Crash Course</div>
+    <div class="cert-meta">Certificate of Completion — Certificate No. cert_5hwx2h12 [cite: 94, 100, 101]</div>
+  </div>
+
+  <div class="cert-card" data-img="Certificate Google Sheets Crash Course.pdf">
+    <div class="cert-badge">DataRockie · Dec 2024</div>
+    <div class="cert-name">Google Sheets Crash Course</div>
+    <div class="cert-meta">Certificate of Completion — Certificate No. cert_sdpwz225</div>
+  </div>
+
+  <div class="cert-card" data-img="Certificate Correlation and Regression for The Curious .pdf">
+    <div class="cert-badge">DataRockie · Feb 2025</div>
+    <div class="cert-name">Correlation and Regression for The Curious</div>
+    <div class="cert-meta">Certificate of Graduation — Serial No. cert_kbnwbzjr [cite: 60, 66, 67]</div>
+  </div>
+
+  <div class="cert-card" data-img="Certificate Mini Data Science Bootcamp 2023.pdf">
+    <div class="cert-badge">DataRockie · Aug 2024</div>
+    <div class="cert-name">Mini Data Science Bootcamp 2023</div>
+    <div class="cert-meta">Certificate of Graduation — Serial No. cert_09bfc8l9</div>
+  </div>
+
+  <div class="cert-card" data-img="Certificate- Generative AI Ov...iew for Project Managers.pdf">
+    <div class="cert-badge">PMI · Nov 2024</div>
+    <div class="cert-name">Generative AI Overview for Project Managers</div>
+    <div class="cert-meta">Project Management Institute — Technical overview completion certificate</div>
+  </div>
+
+  <div class="cert-card" data-img="Certificate SQL Crash Course.pdf">
+    <div class="cert-badge">DataRockie · Jan 2025</div>
+    <div class="cert-name">SQL Crash Course</div>
+    <div class="cert-meta">Intensive training module for advanced data extraction and manipulation</div>
+  </div>
+
+  <div class="cert-card" data-img="ISO13485 Certifcate.pdf">
+    <div class="cert-badge">Knowledge Center Co., Ltd · Jul 2016</div>
+    <div class="cert-name">ISO 13485 : 2012 Internal Auditor Course</div>
+    <div class="cert-meta">Successfully passed the internal auditor examination for Quality Management Systems</div>
+  </div>
+
+</div>
 </section>
 
 <section class="edu-section" id="education">
@@ -344,10 +430,6 @@ footer{padding:2rem 4rem;border-top:.5px solid var(--line);display:flex;justify-
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════════
-     ADDED: Projects Section (new — appended, does not
-     modify any existing section above)
-     ══════════════════════════════════════════════════════ -->
 <section class="projects-section" id="projects">
   <div class="section-label" data-i18n="sectionLabel">Portfolio</div>
   <div class="section-title" data-i18n="sectionTitle">Data Analytics Projects</div>
@@ -388,14 +470,16 @@ footer{padding:2rem 4rem;border-top:.5px solid var(--line);display:flex;justify-
   </div>
 </section>
 
+<div id="certModal" class="modal" onclick="closeModal()">
+  <span class="close-modal">&times;</span>
+  <iframe class="modal-content" id="modalImg" style="width:80%; height:80vh; border:none; background:#fff;"></iframe>
+</div>
+
 <footer>
   <span>© 2025 Jantana Pattarapronpisit</span>
   <span>Data Analyst · Bangkok, Thailand</span>
 </footer>
 
-<!-- ══════════════════════════════════════════════════════
-     ADDED: Projects data + language toggle script
-     ══════════════════════════════════════════════════════ -->
 <script>
 const PROJECTS_DATA = [
 {
@@ -445,7 +529,7 @@ const PROJECTS_DATA = [
     problem:"ร้านอาหารอิสระและร้านที่เน้นการทำเดลิเวอรี่ในกรุงเทพฯ ประสบปัญหาขาดทุนแฝงเนื่องจากสภาวะวิกฤตราคาน้ำมันและการปรับเปลี่ยนค่าคอมมิชชัน (GP) ของแพลตฟอร์มเดลิเวอรี่ เจ้าของร้านส่วนใหญ่ใช้การตั้งราคาแบบตายตัวจากการคำนวณเฉพาะต้นทุนวัตถุดิบทางตรง โดยไม่สามารถมองเห็นการส่งผ่านต้นทุนพลังงานทางอ้อม ส่งผลให้เกิดความเสี่ยงในลักษณะ \"ขายดีแต่ไม่มีกำไร\" หรือตั้งราคาแพงเกินไปจนเสียลูกค้า",
     steps:[
       {label:"Define Analytics Question",items:[
-        "ความผันผวนของราคาน้ำมันขายปลีกและสัดส่วนช่องทางการขายส่งผลกระทบต่ออัตรากำไรขั้นต้นของเมนูอาหารแต่ละรายการอย่างไร?",
+        "ความผันผวนของราคาน้ำมันขายปลีกและสัดส่วนช่องทางการขายส่งผลกระทับต่ออัตรากำไรขั้นต้นของเมนูอาหารแต่ละรายการอย่างไร?",
         "จะออกแบบโครงสร้าง AI Agent อย่างไรให้สามารถเปลี่ยนรูปภาพบิลอินวอยซ์ที่ไม่มีโครงสร้าง มาประมวลผลร่วมกับกลไกราคาตลาดแบบจำลองเรียลไทม์ เพื่อให้คำแนะนำราคาขายที่เหมาะสมที่สุดได้?"
       ]},
       {label:"Collect Data",items:[
@@ -814,7 +898,27 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.lang-toggle button').forEach(btn => {
     btn.addEventListener('click', () => applyLanguage(btn.dataset.lang));
   });
+
+  // ผูกการทำงานให้สามารถคลิกที่การ์ดใบรับรองเพื่อเปิดรูปจริงแบบป๊อปอัพ
+  const cards = document.querySelectorAll('.cert-card');
+  const modal = document.getElementById('certModal');
+  const modalImg = document.getElementById('modalImg');
+
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      const imgUrl = card.getAttribute('data-img');
+      if (imgUrl) {
+        modal.style.display = "block";
+        modalImg.src = imgUrl;
+      }
+    });
+  });
 });
+
+function closeModal() {
+  document.getElementById('certModal').style.display = "none";
+  document.getElementById('modalImg').src = "";
+}
 </script>
 
 </body>
