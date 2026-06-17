@@ -101,18 +101,97 @@ footer{padding:2rem 4rem;border-top:.5px solid var(--line);display:flex;justify-
   .contact-inner{grid-template-columns:1fr;gap:2.5rem}
   footer{flex-direction:column;gap:.4rem}
 }
+
+/* ══════════════════════════════════════════════════════
+   ADDED: Language Toggle + Projects Section
+   (new code only — does not modify existing rules above)
+   ══════════════════════════════════════════════════════ */
+
+.lang-toggle{
+  display:flex;align-items:center;gap:0;
+  border:1px solid var(--line);border-radius:99px;
+  padding:3px;background:var(--white);
+}
+.lang-toggle button{
+  appearance:none;border:none;background:transparent;cursor:pointer;
+  font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:500;
+  letter-spacing:.05em;padding:.35rem .85rem;border-radius:99px;
+  color:var(--ink-soft);transition:background .2s,color .2s;
+}
+.lang-toggle button.active{background:var(--ink);color:var(--cream)}
+.nav-right{display:flex;align-items:center;gap:1.75rem}
+
+.projects-section{background:var(--white)}
+.project-card{
+  border:.5px solid var(--line);background:var(--cream);
+  margin-bottom:1.5rem;overflow:hidden;
+}
+.project-head{
+  padding:2rem 2.25rem 1.5rem;border-bottom:.5px solid var(--line);
+  cursor:pointer;display:flex;justify-content:space-between;
+  align-items:flex-start;gap:1.5rem;
+}
+.project-head:hover{background:rgba(196,98,45,0.03)}
+.project-num{
+  font-family:'DM Serif Display',serif;font-size:.95rem;color:var(--accent);
+  margin-bottom:.5rem;letter-spacing:.05em;
+}
+.project-title{font-family:'DM Serif Display',serif;font-size:1.4rem;margin-bottom:.6rem;line-height:1.25}
+.project-problem{font-size:.86rem;color:var(--ink-mid);line-height:1.75;max-width:760px}
+.project-toggle-icon{
+  flex-shrink:0;width:30px;height:30px;border-radius:50%;
+  border:1px solid var(--line);display:flex;align-items:center;justify-content:center;
+  transition:transform .3s,background .2s;margin-top:.2rem;
+}
+.project-card.open .project-toggle-icon{transform:rotate(45deg);background:var(--accent);border-color:var(--accent);color:var(--white)}
+.project-toggle-icon svg{width:14px;height:14px}
+
+.project-pipeline{
+  max-height:0;overflow:hidden;transition:max-height .4s ease;
+}
+.project-card.open .project-pipeline{max-height:4000px}
+.pipeline-inner{padding:1.75rem 2.25rem 2.25rem}
+
+.pipeline-step{
+  display:grid;grid-template-columns:170px 1fr;gap:1.5rem;
+  padding:1.15rem 0;border-bottom:.5px solid var(--line);
+}
+.pipeline-step:last-child{border-bottom:none}
+.pipeline-step-label{
+  font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--accent);font-weight:500;padding-top:.15rem;
+}
+.pipeline-step-content{font-size:.85rem;color:var(--ink-mid);line-height:1.75}
+.pipeline-step-content ul{list-style:none;margin-top:.35rem}
+.pipeline-step-content li{padding:.2rem 0 .2rem 1.1rem;position:relative}
+.pipeline-step-content li::before{content:'—';position:absolute;left:0;color:var(--accent);font-size:.62rem;top:.32rem}
+
+@media(max-width:860px){
+  .nav-right{gap:.85rem}
+  .project-head{padding:1.5rem 1.25rem 1.25rem;flex-direction:column}
+  .pipeline-inner{padding:1.25rem 1.25rem 1.5rem}
+  .pipeline-step{grid-template-columns:1fr;gap:.35rem;padding:.9rem 0}
+}
+
 </style>
 </head>
 <body>
 
 <nav>
   <div class="nav-name">Jantana P.</div>
-  <div class="nav-links">
-    <a href="#experience">Experience</a>
-    <a href="#skills">Skills</a>
-    <a href="#certificates">Certificates</a>
-    <a href="#education">Education</a>
-    <a href="#contact">Contact</a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects" data-i18n="navProjects">Projects</a>
+      <a href="#certificates">Certificates</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="lang-toggle">
+      <button type="button" data-lang="en" class="active">EN</button>
+      <button type="button" data-lang="th">TH</button>
+    </div>
   </div>
 </nav>
 
@@ -120,7 +199,7 @@ footer{padding:2rem 4rem;border-top:.5px solid var(--line);display:flex;justify-
   <div class="hero-text">
     <div class="section-label">Data Analyst · Bangkok, Thailand</div>
     <h1>Turning data<br>into <em>insight</em></h1>
-    <p class="hero-sub">Executive Business Support Specialist with 9 years of experience supporting senior management in the banking sector, with hands-on exposure to data reporting and visualization using Power BI and Excel. Currently transitioning into data analytics through M.Sc. Applied Statistics at NIDA and Data Science Bootcamp.</p>
+    <p class="hero-sub">Data-Driven Operations Specialist with expertise in branch operations, financial and customer deposit analytics, EDA, forecasting, anomaly detection, compliance monitoring, and executive reporting to support strategic decision-making.</p>
     <a href="#contact" class="hero-cta">
       Get in touch
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -133,124 +212,20 @@ footer{padding:2rem 4rem;border-top:.5px solid var(--line);display:flex;justify-
   </div>
 </section>
 
-<!-- ── SKILLS SECTION (แทนที่ทั้ง section เดิม) ── -->
 <section class="skills-section" id="skills">
   <div class="section-label">Capabilities</div>
   <div class="section-title">Technical skill set</div>
   <div class="skills-grid">
-
-    <div class="skill-item">
-      <span class="skill-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28">
-          <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
-          <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
-        </svg>
-      </span>
-      <div class="skill-name">Power BI</div>
-      <div class="skill-desc">Dashboard design, DAX measures, branch monitoring</div>
-      <div class="skill-bar-wrap"><div class="skill-bar" style="width:90%"></div></div>
-    </div>
-
-    <div class="skill-item">
-      <span class="skill-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28">
-          <rect x="3" y="3" width="18" height="18" rx="2"/>
-          <path d="M3 9h18M3 15h18M9 3v18"/>
-        </svg>
-      </span>
-      <div class="skill-name">Microsoft Excel</div>
-      <div class="skill-desc">Pivot tables, VLOOKUP, financial dashboards</div>
-      <div class="skill-bar-wrap"><div class="skill-bar" style="width:95%"></div></div>
-    </div>
-
-    <div class="skill-item">
-      <span class="skill-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28">
-          <ellipse cx="12" cy="5" rx="9" ry="3"/>
-          <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/>
-          <path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"/>
-        </svg>
-      </span>
-      <div class="skill-name">SQL</div>
-      <div class="skill-desc">Querying, window functions, risk analysis</div>
-      <div class="skill-bar-wrap"><div class="skill-bar" style="width:75%"></div></div>
-    </div>
-
-    <div class="skill-item">
-      <span class="skill-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28">
-          <polyline points="16 18 22 12 16 6"/>
-          <polyline points="8 6 2 12 8 18"/>
-          <line x1="19" y1="12" x2="5" y2="12" opacity=".4"/>
-        </svg>
-      </span>
-      <div class="skill-name">Python</div>
-      <div class="skill-desc">Data analysis, clustering, automation</div>
-      <div class="skill-bar-wrap"><div class="skill-bar" style="width:65%"></div></div>
-    </div>
-
-    <div class="skill-item">
-      <span class="skill-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28">
-          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-        </svg>
-      </span>
-      <div class="skill-name">R Language</div>
-      <div class="skill-desc">Statistical computing — MADT program at NIDA</div>
-      <div class="skill-bar-wrap"><div class="skill-bar" style="width:60%"></div></div>
-    </div>
-
-    <div class="skill-item">
-      <span class="skill-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28">
-          <rect x="3" y="3" width="18" height="18" rx="2"/>
-          <path d="M3 9h18M9 21V9"/>
-        </svg>
-      </span>
-      <div class="skill-name">Google Sheets</div>
-      <div class="skill-desc">Collaborative reporting and advanced formulas</div>
-      <div class="skill-bar-wrap"><div class="skill-bar" style="width:85%"></div></div>
-    </div>
-
-    <div class="skill-item">
-      <span class="skill-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28">
-          <path d="M12 2a4 4 0 0 1 4 4c0 1.5-.8 2.8-2 3.5V11h2a2 2 0 0 1 2 2v1h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1v-1a2 2 0 0 1 2-2h2V9.5C8.8 8.8 8 7.5 8 6a4 4 0 0 1 4-4z"/>
-        </svg>
-      </span>
-      <div class="skill-name">Generative AI</div>
-      <div class="skill-desc">Prompt design, AI for project workflows</div>
-      <div class="skill-bar-wrap"><div class="skill-bar" style="width:70%"></div></div>
-    </div>
-
-    <div class="skill-item">
-      <span class="skill-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28">
-          <rect x="2" y="7" width="20" height="14" rx="2"/>
-          <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
-          <line x1="12" y1="12" x2="12" y2="16"/>
-          <line x1="10" y1="14" x2="14" y2="14"/>
-        </svg>
-      </span>
-      <div class="skill-name">ERP System</div>
-      <div class="skill-desc">Financial compliance, branch expense management</div>
-      <div class="skill-bar-wrap"><div class="skill-bar" style="width:88%"></div></div>
-    </div>
-
+    <div class="skill-item"><span class="skill-icon">📊</span><div class="skill-name">Power BI</div><div class="skill-desc">Dashboard design, DAX measures, branch monitoring</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:90%"></div></div></div>
+    <div class="skill-item"><span class="skill-icon">📗</span><div class="skill-name">Microsoft Excel</div><div class="skill-desc">Pivot tables, VLOOKUP, financial dashboards</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:95%"></div></div></div>
+    <div class="skill-item"><span class="skill-icon">🗄️</span><div class="skill-name">SQL</div><div class="skill-desc">Querying, window functions, risk analysis</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:75%"></div></div></div>
+    <div class="skill-item"><span class="skill-icon">🐍</span><div class="skill-name">Python</div><div class="skill-desc">Data analysis, clustering, automation</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:65%"></div></div></div>
+    <div class="skill-item"><span class="skill-icon">📐</span><div class="skill-name">R Language</div><div class="skill-desc">Statistical computing — MADT program at NIDA</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:60%"></div></div></div>
+    <div class="skill-item"><span class="skill-icon">📋</span><div class="skill-name">Google Sheets</div><div class="skill-desc">Collaborative reporting and advanced formulas</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:85%"></div></div></div>
+    <div class="skill-item"><span class="skill-icon">🤖</span><div class="skill-name">Generative AI</div><div class="skill-desc">Prompt design, AI for project workflows</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:70%"></div></div></div>
+    <div class="skill-item"><span class="skill-icon">🏢</span><div class="skill-name">ERP System</div><div class="skill-desc">Financial compliance, branch expense management</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:88%"></div></div></div>
   </div>
 </section>
-
-<!-- ── เพิ่ม CSS นี้ใน <style> ด้วย ── -->
-<style>
-.skill-icon svg {
-  stroke: var(--gold);
-  opacity: 0.85;
-}
-.skill-item:hover .skill-icon svg {
-  opacity: 1;
-  stroke: #D4A855;
-}
-</style>
 
 <section class="experience-section" id="experience">
   <div class="section-label">Career</div>
@@ -260,11 +235,12 @@ footer{padding:2rem 4rem;border-top:.5px solid var(--line);display:flex;justify-
     <div>
       <div class="exp-title">Assistant Office Manager</div>
       <ul class="exp-bullets">
-        <li>Analyzed customer deposit data to provide key insights for executives on seasonal and gifting strategies.</li>
-        <li>Built and maintained Power BI dashboards to monitor expense trends across 50+ branches, enabling visibility for management.</li>
-        <li>Developed monthly expense and travel reports using Excel (Pivot Tables, dashboards), streamlining financial reporting across all branches.</li>
-        <li>Managed nationwide branch expenses via ERP system, ensuring data accuracy and compliance with corporate policies.</li>
-        <li>Coordinated executive-level meetings, nationwide events, and MC Tour branch visits — managing schedules, budgets, and end-to-end logistics.</li>
+        <li>Conducted EDA on branch expenditure data from ERP systems to identify cost anomalies and ensure compliance with internal policies and procedures.</li>
+        <li>Analyzed customer deposit data using EDA, customer segmentation, and budget allocation analysis to support strategic decisions on seasonal branch gifting budgets.</li>
+        <li>Analyzed nationwide sales license data and managed monthly tracking reports, ensuring strict Bank of Thailand (BOT) regulatory compliance.</li>
+        <li>Produced expense and reimbursement analytics to support cost control and operational efficiency.</li>
+        <li>Forecasted and managed budgets for corporate events, meetings, and training programs by conducting trend analysis on historical data.</li>
+	<li>Delivered executive-ready reports and insights to support data-driven decision-making by senior management and Vice Presidents.</li>
       </ul>
     </div>
   </div>
@@ -273,10 +249,10 @@ footer{padding:2rem 4rem;border-top:.5px solid var(--line);display:flex;justify-
     <div>
       <div class="exp-title">Coordinator and Administration</div>
       <ul class="exp-bullets">
-        <li>Coordinated between internal departments and external organisations.</li>
-        <li>Bridged sales and marketing to improve selling efficiency and customer satisfaction.</li>
-        <li>Managed and developed the Network Merchant Account and POS program.</li>
-        <li>Created daily/weekly financial and inventory reports using Excel (Pivot, VLOOKUP).</li>
+        <li>Managed and structured operational data and performance reports for management decision-making.</li>
+        <li>Manage and develop the Network Merchant Account and POS program.</li>
+        <li>Control and check all paperwork for operation from each branch.</li>
+        <li>Created daily/weekly financial and inventory reports for management using Excel (Pivot, VLOOKUP).</li>
       </ul>
     </div>
   </div>
@@ -295,7 +271,7 @@ footer{padding:2rem 4rem;border-top:.5px solid var(--line);display:flex;justify-
     <div>
       <div class="exp-title">Supply Chain Intern</div>
       <ul class="exp-bullets">
-        <li>Processed and summarised daily warehouse transaction data into structured reports.</li>
+        <li>Processed and summarized daily warehouse transaction data into structured reports.</li>
         <li>Tracked expired goods and managed return reports between customers and warehouses.</li>
       </ul>
     </div>
@@ -368,11 +344,25 @@ footer{padding:2rem 4rem;border-top:.5px solid var(--line);display:flex;justify-
   </div>
 </section>
 
+<!-- ══════════════════════════════════════════════════════
+     ADDED: Projects Section (new — appended, does not
+     modify any existing section above)
+     ══════════════════════════════════════════════════════ -->
+<section class="projects-section" id="projects">
+  <div class="section-label" data-i18n="sectionLabel">Portfolio</div>
+  <div class="section-title" data-i18n="sectionTitle">Data Analytics Projects</div>
+  <p style="font-size:.9rem;color:var(--ink-mid);max-width:680px;margin-bottom:2.5rem;line-height:1.8" data-i18n="sectionIntro">
+    End-to-end analytics case studies — from business problem to actionable recommendation.
+  </p>
+  <div id="projects-list"></div>
+</section>
+
 <section class="contact-section" id="contact">
   <div class="contact-inner">
     <div>
       <div class="section-label">Let's connect</div>
       <div class="contact-big">Ready to<br><em style="font-family:'DM Serif Display',serif;font-style:italic;color:var(--accent)">collaborate?</em></div>
+      <a href="tel:0955564296" class="contact-detail"><span class="contact-dot"></span>095-556-4296</a>
       <a href="mailto:Fah-jantana@hotmail.com" class="contact-detail"><span class="contact-dot"></span>Fah-jantana@hotmail.com</a>
       <div class="contact-detail"><span class="contact-dot"></span>Bang Khae, Bangkok</div>
     </div>
@@ -403,6 +393,430 @@ footer{padding:2rem 4rem;border-top:.5px solid var(--line);display:flex;justify-
   <span>© 2025 Jantana Pattarapronpisit</span>
   <span>Data Analyst · Bangkok, Thailand</span>
 </footer>
+
+<!-- ══════════════════════════════════════════════════════
+     ADDED: Projects data + language toggle script
+     ══════════════════════════════════════════════════════ -->
+<script>
+const PROJECTS_DATA = [
+{
+  id:1,
+  en:{
+    title:"FFIA — Fuel & Food Impact Analyzer",
+    problem:"Independent restaurants and delivery-focused F&B businesses in Bangkok suffer hidden losses from fuel price volatility and shifting delivery platform commission (GP) rates. Most owners use static pricing based only on direct ingredient cost, with no visibility into indirect energy-cost pass-through — creating a \"high sales, no profit\" risk or overpricing that drives customers away.",
+    steps:[
+      {label:"Define Analytics Question",items:[
+        "How do retail fuel price volatility and channel mix affect gross margin per menu item?",
+        "How can an AI Agent architecture convert unstructured invoice photos into structured data and combine it with real-time market pricing logic to recommend optimal selling prices?"
+      ]},
+      {label:"Collect Data",items:[
+        "Real-time retail fuel prices streamed via Bangchak Fuel API",
+        "Unstructured data: photos of receipts and supplier purchase invoices",
+        "Internal structured data: restaurant profiles, delivery platform GP rates, seeded channel mix"
+      ]},
+      {label:"Data Cleaning",items:[
+        "Vision OCR to convert raw invoice photos into text, with parsing logic to clean and structure into itemized tables",
+        "Standardized ingredient names and units (kg, g, pack)",
+        "Handled missing values and OCR misreads with a review & validation step before storing in PostgreSQL"
+      ]},
+      {label:"EDA (Descriptive Stats)",items:[
+        "Monthly spend analysis and top-spend ingredient cards to identify key cost drivers",
+        "Frequency distribution of per-menu profit margin split by dine-in vs. each delivery channel"
+      ]},
+      {label:"Statistical / ML Analysis",items:[
+        "Built an Agentic AI architecture on LangGraph (ReAct loop) combined with Gemini 2.5 Flash",
+        "Used the model for natural language intent parsing; the agent routes tasks to deterministic financial tools for precise rule-based calculation"
+      ]},
+      {label:"Model Evaluation",items:[
+        "Ran user prompt testing to evaluate chatbot response behavior",
+        "Validated financial context via business rule templates with an open tool trace for auditability"
+      ]},
+      {label:"Insight Interpretation",items:[
+        "A ฿5 increase in diesel price passes through to delivery and GP costs, dropping some delivery menu margins below break-even even when raw ingredient prices stay flat",
+        "High variation in Thai ingredient naming significantly slowed historical cost-data retrieval"
+      ]},
+      {label:"Business Recommendation",items:[
+        "Enable dynamic repricing / platform-specific pricing to shift excess cost burden to the highest-risk channels only",
+        "Redesign menu bundles — pair high-margin items with high-ingredient-volume items to support overall gross margin"
+      ]}
+    ]
+  },
+  th:{
+    title:"FFIA (Fuel & Food Impact Analyzer)",
+    problem:"ร้านอาหารอิสระและร้านที่เน้นการทำเดลิเวอรี่ในกรุงเทพฯ ประสบปัญหาขาดทุนแฝงเนื่องจากสภาวะวิกฤตราคาน้ำมันและการปรับเปลี่ยนค่าคอมมิชชัน (GP) ของแพลตฟอร์มเดลิเวอรี่ เจ้าของร้านส่วนใหญ่ใช้การตั้งราคาแบบตายตัวจากการคำนวณเฉพาะต้นทุนวัตถุดิบทางตรง โดยไม่สามารถมองเห็นการส่งผ่านต้นทุนพลังงานทางอ้อม ส่งผลให้เกิดความเสี่ยงในลักษณะ \"ขายดีแต่ไม่มีกำไร\" หรือตั้งราคาแพงเกินไปจนเสียลูกค้า",
+    steps:[
+      {label:"Define Analytics Question",items:[
+        "ความผันผวนของราคาน้ำมันขายปลีกและสัดส่วนช่องทางการขายส่งผลกระทบต่ออัตรากำไรขั้นต้นของเมนูอาหารแต่ละรายการอย่างไร?",
+        "จะออกแบบโครงสร้าง AI Agent อย่างไรให้สามารถเปลี่ยนรูปภาพบิลอินวอยซ์ที่ไม่มีโครงสร้าง มาประมวลผลร่วมกับกลไกราคาตลาดแบบจำลองเรียลไทม์ เพื่อให้คำแนะนำราคาขายที่เหมาะสมที่สุดได้?"
+      ]},
+      {label:"Collect Data",items:[
+        "ข้อมูลราคาน้ำมันขายปลีกเรียลไทม์จากคู่ค้า (สตรีมผ่าน Bangchak Fuel API)",
+        "ข้อมูลไม่มีโครงสร้าง: รูปภาพถ่ายบิลใบเสร็จรับเงินและอินวอยซ์สั่งซื้อวัตถุดิบจากซัพพลายเออร์",
+        "ข้อมูลเชิงโครงสร้างภายใน: โปรไฟล์ร้านอาหาร, อัตราค่า GP ของแต่ละแพลตฟอร์ม และสัดส่วนยอดขายรายช่องทาง"
+      ]},
+      {label:"Data Cleaning",items:[
+        "ใช้ Vision OCR แปลงภาพถ่ายบิลวัตถุดิบให้เป็นข้อความ พร้อมเขียนสคริปต์สกัดคำเพื่อจัดกลุ่มเป็นตาราง",
+        "ทำความสะอาดชื่อวัตถุดิบและแปลงหน่วยวัด (กิโลกรัม, กรัม, แพ็ค) ให้เป็นมาตรฐานเดียวกัน",
+        "จัดการข้อมูลสูญหายหรือตัวอักษรที่ OCR อ่านผิด โดยเพิ่มขั้นตอนตรวจสอบความถูกต้องก่อนบันทึกลง PostgreSQL"
+      ]},
+      {label:"EDA (Descriptive Stats)",items:[
+        "วิเคราะห์แนวโน้มค่าใช้จ่ายรายเดือนและหาวัตถุดิบที่มียอดซื้อสูงสุดเพื่อระบุตัวแปรหลักที่ขับเคลื่อนต้นทุน",
+        "แจกแจงความถี่และการกระจายตัวของสัดส่วนกำไรรายเมนู แยกตามหน้าร้านเทียบกับเดลิเวอรี่แต่ละเจ้า"
+      ]},
+      {label:"Statistical / ML Analysis",items:[
+        "พัฒนาสถาปัตยกรรม Agentic AI บน LangGraph (ReAct Loop) ร่วมกับโมเดล Gemini 2.5 Flash",
+        "ใช้โมเดลประมวลผลคำสั่งภาษาธรรมชาติและแยกแยะเจตนาเชิงธุรกิจ จากนั้น Agent กระจายงานไปยังเครื่องมือคำนวณการเงินที่แม่นยำ"
+      ]},
+      {label:"Model Evaluation",items:[
+        "รัน User Prompt Testing เพื่อประเมินพฤติกรรมการตอบสนองของแชทบอท",
+        "ตรวจสอบความเหมาะสมทางการเงินผ่าน Business Rule Templates และสืบค้นตรรกะย้อนหลังได้ (Open Tool Trace)"
+      ]},
+      {label:"Insight Interpretation",items:[
+        "เมื่อราคาดีเซลเพิ่มขึ้น 5 บาท ต้นทุนแฝงจะส่งผ่านไปยังค่าขนส่งและค่า GP ทำให้มาร์จิ้นเมนูเดลิเวอรี่บางประเภทต่ำกว่าจุดคุ้มทุนทันที",
+        "การจับคู่ชื่อวัตถุดิบภาษาไทยมีความผันแปรสูง ส่งผลต่อความเร็วในการดึงข้อมูลต้นทุนในอดีต"
+      ]},
+      {label:"Business Recommendation",items:[
+        "เปิดใช้งาน Dynamic Repricing หรือตั้งราคาเฉพาะแพลตฟอร์ม เพื่อผลักภาระต้นทุนเฉพาะช่องทางที่เสี่ยง",
+        "ปรับโครงสร้างชุดเมนู โดยจับคู่สินค้ามาร์จิ้นสูงกับสินค้าที่มียอดซื้อวัตถุดิบหลักสูง เพื่อพยุงกำไรขั้นต้นโดยรวม"
+      ]}
+    ]
+  }
+},
+{
+  id:2,
+  en:{
+    title:"Hello Ride — AOT Intelligent Sync Platform",
+    problem:"Taxi dispatch at Suvarnabhumi Airport suffers chronic platform bottlenecks because the system is reactive — only calling cars once a passenger reaches the queue. Inbound passenger waves surge every 15 minutes, pushing average wait time to 44.9 minutes at peak and destroying an estimated ฿1.44 billion/year in economic value, per World Bank VTTS standards.",
+    steps:[
+      {label:"Define Analytics Question",items:[
+        "Can external signals (flight schedules, delays, weather) accurately forecast Passenger Wait Time (PWT) 45 minutes in advance?",
+        "How can a proactive dispatch & AI matching agent be designed to keep service levels (SLA) within standard?"
+      ]},
+      {label:"Collect Data",items:[
+        "Live flight schedule and delay signals streamed via OpenSky Network API",
+        "Weather index data streamed via NASA POWER API",
+        "Internal structured data: taxi supply index and baggage-claim QR scan history"
+      ]},
+      {label:"Data Cleaning",items:[
+        "Converted raw timestamps from multiple sources into a unified local time bucket (bucket_time_local)",
+        "Integrated and synchronized signals of differing frequencies into hybrid 15-minute time-band feature grids, totaling 22 model features"
+      ]},
+      {label:"EDA (Descriptive Stats)",items:[
+        "Analyzed the relationship between inbound passenger volume and taxi queue distribution",
+        "Identified a clear \"Reactive Gap\": every wide-body landing triggers a demand spike ~45 minutes later, pushing PWT to critical levels"
+      ]},
+      {label:"Statistical / ML Analysis",items:[
+        "Trained an XGBoost regression model (ML forecast time-series engine) to predict the target variable avg_wait_min (PWT)",
+        "Built an AI Matching Agent scoring system using weighted logic: 30% ETA + 25% vehicle capacity + 20% queue priority + 15% acceptance rate + 10% PWT urgency"
+      ]},
+      {label:"Model Evaluation",items:[
+        "Ran 7 statistical hypothesis tests, including non-parametric tests (Mann-Whitney U, Kruskal-Wallis) to validate data distribution",
+        "Achieved an F1-score +19.2pp above a naive baseline, with Tier 3 alert precision of 88.9%"
+      ]},
+      {label:"Insight Interpretation",items:[
+        "Flight Arrival Pressure and Delay Signal carried the highest feature importance driving airport queue congestion",
+        "Switching dispatch matching modes based on forecasted PWT levels clearly broke the vicious cycle of platform queue overflow"
+      ]},
+      {label:"Business Recommendation",items:[
+        "Deploy an Airport OPS Cockpit Dashboard to pre-position vehicles 45 minutes ahead (T−45 min)",
+        "Implement automatic mode switching: PWT ≤15 min → Normal (FCFS); 15–30 min → Priority Matching; >30 min → Critical Priority Matching (pull all highest-ETA vehicles to clear the bottleneck immediately)"
+      ]}
+    ]
+  },
+  th:{
+    title:"Hello Ride (AOT Intelligent Sync Platform)",
+    problem:"ระบบจัดสรรและปล่อยรถแท็กซี่ ณ ท่าอากาศยานสุวรรณภูมิ ประสบปัญหาคอขวดสะสมในชานชาลาเนื่องจากระบบทำงานแบบ \"ตั้งรับ\" คือเริ่มเรียกรถเมื่อผู้โดยสารเดินมาถึงคิวแล้วเท่านั้น ขณะที่คลื่นผู้โดยสารขาเข้าไหลบ่ามาทุก 15 นาที ทำให้ช่วงเร่งด่วนผู้โดยสารต้องรอคิวเฉลี่ยถึง 44.9 นาที ทำลายมูลค่าทางเศรษฐกิจ (ตามเกณฑ์ VTTS ของ World Bank) สูงถึง 1.44 พันล้านบาทต่อปี",
+    steps:[
+      {label:"Define Analytics Question",items:[
+        "ปัจจัยภายนอก (ตารางบิน, ดีเลย์, สภาพอากาศ) สามารถพยากรณ์ระยะเวลารอคอยเฉลี่ยของผู้โดยสาร (PWT) ล่วงหน้า 45 นาทีได้แม่นยำหรือไม่?",
+        "จะสร้างระบบคำนวณคะแนนและจับคู่ยานพาหนะเชิงรุก (Proactive Dispatch & AI Matching Agent) อย่างไรให้รักษาระดับ SLA ได้?"
+      ]},
+      {label:"Collect Data",items:[
+        "สตรีมข้อมูลตารางเที่ยวบินสดและสัญญาณการล่าช้าผ่าน OpenSky Network API",
+        "สตรีมข้อมูลดัชนีสภาพอากาศผ่าน NASA POWER API",
+        "ข้อมูลเชิงโครงสร้างภายใน: สถิติปริมาณแท็กซี่ในคลังและประวัติการสแกน QR Code ตั๋วคิวบริเวณจุดรับกระเป๋า"
+      ]},
+      {label:"Data Cleaning",items:[
+        "แปลงข้อมูลสัญญาณเวลาดิบจากแหล่งต่างๆ ให้อยู่ในพิกัดเวลาท้องถิ่นเดียวกัน (bucket_time_local)",
+        "รวมและซิงโครไนซ์สัญญาณข้อมูลที่มีความถี่ต่างกันเข้าสู่ตารางคุณลักษณะผสมแบ่งช่วงเวลาละ 15 นาที รวม 22 Model Features"
+      ]},
+      {label:"EDA (Descriptive Stats)",items:[
+        "วิเคราะห์ความสัมพันธ์ระหว่างปริมาณผู้โดยสารขาเข้ากับการกระจายตัวของคิวรถแท็กซี่",
+        "พบสภาวะ \"Reactive Gap\" ชัดเจน — เครื่องบิน Wide-body แลนดิ้งทำให้ความต้องการรถพุ่งสูงขึ้นหลังจากนั้น 45 นาที จนระดับ PWT แตะจุดวิกฤต"
+      ]},
+      {label:"Statistical / ML Analysis",items:[
+        "พัฒนาและฝึกสอนโมเดล XGBoost Regression เพื่อทำนาย avg_wait_min (PWT)",
+        "พัฒนา AI Matching Agent Scoring ด้วยตรรกะถ่วงน้ำหนัก: 30% ETA + 25% Vehicle Capacity + 20% Queue Priority + 15% Acceptance Rate + 10% PWT Urgency"
+      ]},
+      {label:"Model Evaluation",items:[
+        "ทดสอบสมมติฐานทางสถิติ 7 ข้อ รวมการทดสอบแบบนอนพาราเมตริก เช่น Mann-Whitney U และ Kruskal-Wallis Test",
+        "โมเดลทำ F1-Score สูงกว่า Naive Baseline ถึง +19.2pp และมีความแม่นยำของ Tier 3 Alert สูงถึง 88.9%"
+      ]},
+      {label:"Insight Interpretation",items:[
+        "สัญญาณ Flight Arrival Pressure และ Delay Signal มีน้ำหนักความสำคัญสูงสุดในการขับเคลื่อนความแออัดของคิวรถ",
+        "การเปลี่ยนโหมดจับคู่รถแบบแปรผันตามระดับ PWT ช่วยตัดวงจรคิวยาวล้นชานชาลาได้อย่างชัดเจน"
+      ]},
+      {label:"Business Recommendation",items:[
+        "ติดตั้ง Airport OPS Cockpit Dashboard เพื่อสั่งการให้รถเคลื่อนตัวล่วงหน้า 45 นาที (T−45 min)",
+        "ใช้กลไกเปลี่ยนโหมดอัตโนมัติ: PWT ≤15 นาที ใช้ Normal (FCFS); 15–30 นาที ปรับเป็น Priority Matching; >30 นาที เข้าสู่ Critical Priority Matching"
+      ]}
+    ]
+  }
+},
+{
+  id:3,
+  en:{
+    title:"AI-Enabled Knowledge Center — The New Work Experience",
+    problem:"Large organizations face severe knowledge loss (brain drain) when expert employees leave, because most operational knowledge is tacit and person-dependent — crisis decision logic, client relationship nuance. Traditional culture often causes knowledge hoarding due to reward structures and job-security fear, pushing new-hire onboarding past 6 months before reaching full productivity.",
+    steps:[
+      {label:"Define Analytics Question",items:[
+        "How can unstructured collaboration logs from former experts be extracted and transformed into role-based structured knowledge?",
+        "How can Generative AI build a role-based AI digital twin to act as an intelligent advisor for new employees — without adding workload to current staff?"
+      ]},
+      {label:"Collect Data",items:[
+        "Unstructured historical data: internal email history, team chat logs, and meeting recordings/transcripts from key cases",
+        "Structured data: standard operating manuals and historical project outcome reports"
+      ]},
+      {label:"Data Cleaning",items:[
+        "Filtered and cleaned raw text — noise reduction, removal of irrelevant personal data, restructuring conversation history into chronological event streams",
+        "Extracted and grouped problem-solving logic, trade-off factors, and complaint-handling context from experts"
+      ]},
+      {label:"EDA (Descriptive Stats)",items:[
+        "Mapped the knowledge network to find which topics were the most frequently searched knowledge hubs",
+        "Found traditional knowledge management failed due to being manual, effort-heavy, hard to search, and rarely reusable in practice"
+      ]},
+      {label:"Statistical / ML Analysis",items:[
+        "Applied Generative AI and LLM persona processing",
+        "Built a \"Digital Twin Agent / Ask the Legend\" chatbot, trained on an expert's response patterns, reasoning logic, and language style to create a realistic role-based persona"
+      ]},
+      {label:"Model Evaluation",items:[
+        "Audited responses against real historical business cases to measure content accuracy and language behavior control",
+        "Checked for hallucination control and set contextual verification thresholds for organizational data safety"
+      ]},
+      {label:"Insight Interpretation",items:[
+        "New hires can access \"tacit knowledge\" — never written in manuals — immediately through scenario-based Q&A, retaining 100% of knowledge in the organization even after the expert leaves",
+        "Switching to proactive knowledge delivery before problems arise reduced repeated decision-making errors significantly"
+      ]},
+      {label:"Business Recommendation",items:[
+        "Restructure HR knowledge architecture: retire static manual documentation in favor of direct daily chat/email integration into a cloud knowledge base",
+        "Build positive incentives: shift culture from knowledge hoarding toward rewarding employees who train their own AI Digital Twin to the highest quality before role transition"
+      ]}
+    ]
+  },
+  th:{
+    title:"AI-Enabled Knowledge Center (The New Work Experience)",
+    problem:"องค์กรธุรกิจขนาดใหญ่เผชิญภาวะสูญเสียความรู้อย่างรุนแรงเมื่อพนักงานระดับผู้เชี่ยวชาญลาออก (Brain Drain) เนื่องจากองค์ความรู้ส่วนใหญ่เป็นความรู้เชิงปฏิบัติที่ซ่อนเร้นและยึดติดกับตัวบุคคล วัฒนธรรมองค์กรแบบดั้งเดิมมักเกิดปัญหากักตุนความรู้จากระบบรางวัลและความกลัว ส่งผลให้พนักงานใหม่ต้องใช้เวลา Onboarding ยาวนานกว่า 6 เดือนกว่าจะสร้าง Productivity ได้",
+    steps:[
+      {label:"Define Analytics Question",items:[
+        "จะสกัดและแปลงข้อมูลพฤติกรรมการสื่อสารที่ไม่มีโครงสร้างของอดีตผู้เชี่ยวชาญ มาจัดทำเป็นโครงสร้างความรู้ระดับตำแหน่งงานได้อย่างไร?",
+        "จะประยุกต์ใช้ Generative AI ในการทำแบบจำลองบุคลิกภาพประจำบทบาท เพื่อเป็นที่ปรึกษาอัจฉริยะให้พนักงานใหม่ได้อย่างไรโดยไม่เพิ่มภาระงานพนักงานเก่า?"
+      ]},
+      {label:"Collect Data",items:[
+        "ข้อมูลไม่มีโครงสร้างเชิงประวัติศาสตร์: ประวัติอีเมลภายในองค์กร, Team Chat Logs และไฟล์เสียง/วิดีโอพร้อม Transcript จากการประชุมเคสสำคัญ",
+        "ข้อมูลเชิงโครงสร้าง: คู่มือมาตรฐานการปฏิบัติงานและประวัติรายงานผลลัพธ์โครงการ"
+      ]},
+      {label:"Data Cleaning",items:[
+        "กรองและทำความสะอาดข้อความดิบ คัดแยกข้อมูลขยะ ลบข้อมูลส่วนบุคคลที่ไม่เกี่ยวข้อง แปลงเป็นรูปแบบลำดับเหตุการณ์",
+        "สกัดและจัดกลุ่มตรรกะการแก้ปัญหา ปัจจัยการค้า และบริบทการจัดการข้อร้องเรียนของผู้เชี่ยวชาญ"
+      ]},
+      {label:"EDA (Descriptive Stats)",items:[
+        "วิเคราะห์โครงสร้างเครือข่ายความรู้เพื่อค้นหาหัวข้อที่เป็นจุดศูนย์รวมความรู้ที่พนักงานสืบค้นบ่อยที่สุด",
+        "พบว่าเครื่องมือจัดเก็บความรู้แบบดั้งเดิมล้มเหลวเนื่องจากใช้แรงงานคนมากเกินไป ค้นหายาก และนำกลับมาใช้ซ้ำได้จริงน้อย"
+      ]},
+      {label:"Statistical / ML Analysis",items:[
+        "ประยุกต์ใช้ Generative AI และการประมวลผล LLM Persona",
+        "พัฒนาระบบ \"Digital Twin Agent / Ask the Legend\" โดยป้อนพฤติกรรมการตอบสนอง ตรรกะความคิด และสไตล์ภาษาของผู้เชี่ยวชาญเข้าไปสร้างจิตจำลองบทบาทงาน"
+      ]},
+      {label:"Model Evaluation",items:[
+        "สอบทานคำตอบกับกรณีศึกษาจริงทางธุรกิจในอดีตเพื่อวัดความถูกต้องของเนื้อหาและคุมพฤติกรรมทางภาษา",
+        "ตรวจสอบปัญหา Hallucination และตั้งเกณฑ์ประเมินความปลอดภัยของข้อมูลองค์กร"
+      ]},
+      {label:"Insight Interpretation",items:[
+        "พนักงานใหม่เข้าถึง \"Tacit Knowledge\" ที่ไม่เคยถูกเขียนในคู่มือได้ทันทีผ่านคำถามจำลองสถานการณ์ ความรู้คงอยู่กับองค์กร 100% แม้บุคคลลาออก",
+        "การเปลี่ยนระบบให้ \"เสิร์ฟ\" ความรู้เชิงรุกก่อนปัญหาเกิด ช่วยลดความผิดพลาดซ้ำซากของทีมงานลงได้มาก"
+      ]},
+      {label:"Business Recommendation",items:[
+        "ปรับสถาปัตยกรรมการจัดการบุคลากร ยกเลิกคู่มือเอกสารแบบเดิม เชื่อมข้อมูลแชทและอีเมลประจำวันเข้าสู่คลังความรู้คลาวด์โดยตรง",
+        "สร้างแรงจูงใจเชิงบวก เปลี่ยนวัฒนธรรมจากการกักตุนความรู้ มาเป็นรางวัลให้พนักงานที่เทรน AI Digital Twin ของตนเองให้เก่งที่สุดก่อนโยกย้ายตำแหน่ง"
+      ]}
+    ]
+  }
+},
+{
+  id:4,
+  en:{
+    title:"Elderly Care Center Application — Best Care Team",
+    problem:"Thailand has fully entered an aging society, yet the caregiver market remains fragmented and low-trust. Families lack a systematic platform to verify criminal background checks, license levels, and fair pricing — making it costly and time-consuming to find a quality caregiver.",
+    steps:[
+      {label:"Define Analytics Question",items:[
+        "How can a scoring model and cloud architecture be designed to provide caregiver sourcing, matching, and real-time geo-safety tracking reliably and securely?",
+        "Is the platform financially viable, and what return-on-investment metrics can it generate?"
+      ]},
+      {label:"Collect Data",items:[
+        "Caregiver profile and professional license database",
+        "Real-time GPS snapshots from mobile devices",
+        "Transaction and booking history logs",
+        "Legal documentation and consent/privacy data"
+      ]},
+      {label:"Data Cleaning",items:[
+        "Built input validation via Cloud Functions to screen ID card and age data",
+        "Applied advanced PII masking on the database to protect personal data per PDPA regulatory standards"
+      ]},
+      {label:"EDA (Descriptive Stats)",items:[
+        "Analyzed spatial density of elderly-care demand versus available caregiver supply",
+        "Modeled OPEX budget trends on Google Cloud Platform (GCP) — Cloud SQL, Cloud Run, Pub/Sub, BigQuery — to control monthly cloud costs by service"
+      ]},
+      {label:"Statistical / ML Analysis",items:[
+        "Built a Geospatial AI Matching Agent scoring algorithm to rank the most suitable caregivers using weighted criteria: distance, location, specialized nursing skills, and review scores",
+        "Designed an AI Health Alert Engine to analyze health signal trends and auto-trigger risk notifications"
+      ]},
+      {label:"Model Evaluation",items:[
+        "Used Google BigQuery Analytics for KPI analysis and SLA evaluation of caregiver-matching speed",
+        "Ran financial modeling simulations to assess risk and break-even point of the application"
+      ]},
+      {label:"Insight Interpretation",items:[
+        "Modern GCP infrastructure (Cloud Run + Cloud Firestore together) enabled smooth live GPS tracking and emergency panic-button processing with minimal latency",
+        "Deep financial viability confirmed: NPV of ฿14.9 million, ROI of 60%, and payback within just 5 months"
+      ]},
+      {label:"Business Recommendation",items:[
+        "Launch to B2C market via subscription + take-rate on bookings, leading with maximum-safety positioning",
+        "Accelerate ecosystem growth with a \"Verified Caregiver Badge\" for caregivers who pass criminal background checks and partner-institution skill training — building the trust core to customer purchase decisions"
+      ]}
+    ]
+  },
+  th:{
+    title:"Elderly Care Center Application (Best Care Team)",
+    problem:"ประเทศไทยก้าวเข้าสู่สังคมผู้สูงอายุอย่างเต็มรูปแบบ แต่ตลาดแรงงานผู้ดูแลผู้สูงอายุยังกระจัดกระจายและขาดความน่าเชื่อถือ ครอบครัวผู้สูงวัยขาดแพลตฟอร์มตัวกลางที่เป็นระบบในการตรวจประวัติอาชญากรรม ใบอนุญาต และอัตราค่าบริการที่เป็นธรรม ส่งผลให้การเข้าถึงผู้ดูแลคุณภาพใช้เวลาและต้นทุนสูง",
+    steps:[
+      {label:"Define Analytics Question",items:[
+        "จะออกแบบโมเดลคำนวณคะแนนและสถาปัตยกรรมคลาวด์อย่างไร เพื่อจัดหา คัดเลือกจับคู่ผู้ดูแล และติดตามความปลอดภัยทางภูมิศาสตร์แบบเรียลไทม์ได้อย่างมีเสถียรภาพ?",
+        "แพลตฟอร์มนี้มีความคุ้มค่าทางการเงินเชิงธุรกิจอย่างไร และจะสร้างผลตอบแทนการลงทุนได้เท่าไหร่?"
+      ]},
+      {label:"Collect Data",items:[
+        "ข้อมูลโปรไฟล์พนักงานและใบอนุญาตวิชาชีพ",
+        "สัญญาณพิกัดภูมิศาสตร์แบบสดจากอุปกรณ์เคลื่อนที่",
+        "ประวัติพฤติกรรมการทำธุรกรรมและการจองงาน",
+        "ข้อมูลเอกสารทางกฎหมายและการให้ความยินยอม"
+      ]},
+      {label:"Data Cleaning",items:[
+        "พัฒนาระบบตรวจสอบความถูกต้องของข้อมูลนำเข้าผ่าน Cloud Functions เพื่อคัดกรองข้อมูลบัตรประชาชนและอายุ",
+        "ดำเนินการปกปิดข้อมูลส่วนบุคคลขั้นสูง (PII Masking) เพื่อรักษาความเป็นส่วนตัวตามมาตรฐาน PDPA"
+      ]},
+      {label:"EDA (Descriptive Stats)",items:[
+        "วิเคราะห์ความหนาแน่นเชิงพื้นที่ของความต้องการบริการเทียบกับสัดส่วนผู้ดูแลที่พร้อมรับงาน",
+        "ทำแบบจำลองวิเคราะห์งบประมาณ OPEX บน Google Cloud Platform (Cloud SQL, Cloud Run, Pub/Sub, BigQuery) เพื่อควบคุมค่าใช้จ่ายคลาวด์รายเดือน"
+      ]},
+      {label:"Statistical / ML Analysis",items:[
+        "พัฒนา Geospatial AI Matching Agent Scoring เพื่อจัดอันดับผู้ดูแลที่เหมาะสมที่สุด โดยถ่วงน้ำหนักจากระยะทาง พิกัด ทักษะเฉพาะทาง และคะแนนรีวิว",
+        "ออกแบบ AI Health Alert Engine เพื่อวิเคราะห์สัญญาณสุขภาพและแจ้งเตือนความเสี่ยงอัตโนมัติ"
+      ]},
+      {label:"Model Evaluation",items:[
+        "ใช้ Google BigQuery Analytics ทำ KPI Analytics และประเมิน SLA ของความเร็วในการจับคู่ผู้ดูแล",
+        "ทดสอบจำลองตัวเลขทางการเงินเพื่อประเมินความเสี่ยงและจุดคุ้มทุนของแอปพลิเคชัน"
+      ]},
+      {label:"Insight Interpretation",items:[
+        "โครงสร้างพื้นฐาน GCP ยุคใหม่ (Cloud Run + Cloud Firestore) ช่วยให้สตรีมข้อมูลตำแหน่งสดและปุ่มแจ้งเหตุฉุกเฉินทำงานราบรื่นด้วยค่าความหน่วงต่ำสุด",
+        "การันตีความคุ้มค่าทางการเงิน: NPV สูงถึง 14.9 ล้านบาท ROI 60% และคืนทุนได้ภายในเพียง 5 เดือน"
+      ]},
+      {label:"Business Recommendation",items:[
+        "เปิดตัวสู่ตลาด B2C ด้วยระบบสมัครสมาชิกและหัก Take-rate จากยอดจอง ชูจุดขายด้านความปลอดภัยขั้นสูงสุด",
+        "เร่งการเติบโตของ Ecosystem ด้วย \"Verified Caregiver Badge\" สำหรับผู้ดูแลที่ผ่านการตรวจประวัติอาชญากรรมและอบรมทักษะจากสถาบันพันธมิตร เพื่อสร้างความเชื่อใจในการตัดสินใจซื้อบริการ"
+      ]}
+    ]
+  }
+}
+];
+
+const UI_LABELS = {
+  en:{
+    navProjects:"Projects",
+    sectionLabel:"Portfolio",
+    sectionTitle:"Data Analytics Projects",
+    sectionIntro:"End-to-end analytics case studies — from business problem to actionable recommendation.",
+    clickHint:"Click to expand full pipeline"
+  },
+  th:{
+    navProjects:"โปรเจกต์",
+    sectionLabel:"พอร์ตโฟลิโอ",
+    sectionTitle:"โปรเจกต์ด้านการวิเคราะห์ข้อมูล",
+    sectionIntro:"เคสศึกษาการวิเคราะห์ข้อมูลแบบครบวงจร — ตั้งแต่ปัญหาทางธุรกิจจนถึงข้อเสนอแนะที่นำไปปฏิบัติได้จริง",
+    clickHint:"คลิกเพื่อดูรายละเอียดทั้งหมด"
+  }
+};
+
+let currentLang = 'en';
+
+function renderProjects(lang){
+  const container = document.getElementById('projects-list');
+  if(!container) return;
+  container.innerHTML = '';
+
+  PROJECTS_DATA.forEach((proj, idx) => {
+    const d = proj[lang];
+    const card = document.createElement('div');
+    card.className = 'project-card';
+    card.id = 'project-card-' + proj.id;
+
+    const head = document.createElement('div');
+    head.className = 'project-head';
+    head.innerHTML =
+      '<div>' +
+        '<div class="project-num">Project ' + String(proj.id).padStart(2,'0') + '</div>' +
+        '<div class="project-title">' + d.title + '</div>' +
+        '<div class="project-problem">' + d.problem + '</div>' +
+      '</div>' +
+      '<div class="project-toggle-icon"><svg viewBox="0 0 14 14" fill="none"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>';
+
+    head.addEventListener('click', () => {
+      card.classList.toggle('open');
+    });
+
+    const pipeline = document.createElement('div');
+    pipeline.className = 'project-pipeline';
+    const inner = document.createElement('div');
+    inner.className = 'pipeline-inner';
+
+    d.steps.forEach(step => {
+      const stepDiv = document.createElement('div');
+      stepDiv.className = 'pipeline-step';
+      const ul = step.items.map(it => '<li>' + it + '</li>').join('');
+      stepDiv.innerHTML =
+        '<div class="pipeline-step-label">' + step.label + '</div>' +
+        '<div class="pipeline-step-content"><ul>' + ul + '</ul></div>';
+      inner.appendChild(stepDiv);
+    });
+
+    pipeline.appendChild(inner);
+    card.appendChild(head);
+    card.appendChild(pipeline);
+    container.appendChild(card);
+  });
+}
+
+function applyLanguage(lang){
+  currentLang = lang;
+  const labels = UI_LABELS[lang];
+
+  document.querySelectorAll('[data-i18n="navProjects"]').forEach(el => el.textContent = labels.navProjects);
+  document.querySelectorAll('[data-i18n="sectionLabel"]').forEach(el => el.textContent = labels.sectionLabel);
+  document.querySelectorAll('[data-i18n="sectionTitle"]').forEach(el => el.textContent = labels.sectionTitle);
+  document.querySelectorAll('[data-i18n="sectionIntro"]').forEach(el => el.textContent = labels.sectionIntro);
+
+  document.querySelectorAll('.lang-toggle button').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === lang);
+  });
+
+  renderProjects(lang);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderProjects('en');
+
+  document.querySelectorAll('.lang-toggle button').forEach(btn => {
+    btn.addEventListener('click', () => applyLanguage(btn.dataset.lang));
+  });
+});
+</script>
 
 </body>
 </html>
