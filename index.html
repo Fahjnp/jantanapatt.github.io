@@ -37,9 +37,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 section{padding:6rem 4rem}
 .section-label{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem;font-weight:500}
 .section-title{font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,3vw,2.8rem);line-height:1.1;margin-bottom:3rem}
-.skills-section{background:var(--ink);color:var(--cream)}
-.skills-section .section-label{color:var(--gold)}
-.skills-section .section-title{color:var(--cream)}
+.skills-section {
+  background: var(--cream);
+  color: var(--ink);
+}
+.skills-section .section-label {
+  color: var(--accent);
+}
+.skills-section .section-title {
+  color: var(--ink);
+}
 .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.07)}
 .skill-item{padding:2rem 1.5rem;background:var(--ink);transition:background .2s}
 .skill-item:hover{background:#242018}
@@ -69,7 +76,18 @@ section{padding:6rem 4rem}
 .cert-card:hover .cert-verify{opacity:1}
 .edu-section{background:var(--accent-light)}
 .edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
-.edu-card{background:var(--white);padding:2rem 2.5rem;border-bottom:3px solid var(--accent)}
+.edu-card {
+  background: var(--white);
+  padding: 1.25rem 1.5rem;             /* ลดความหนาของช่องว่างภายในกล่องลงเพื่อให้กรอบเล็กลง */
+  border: 1px solid rgba(196, 98, 45, 0.4); /* เปลี่ยนเป็นเส้นขอบส้มเส้นเล็กบางๆ ล้อมรอบตัวกล่อง */
+  border-radius: 8px;                  /* เพิ่มความมนที่มุมกล่องให้ดูมินิมอลและทันสมัยขึ้น */
+  box-shadow: 0 2px 8px rgba(196, 98, 45, 0.04); /* เพิ่มเงาส้มจางๆ ให้กล่องลอยและเด่นขึ้น */
+  transition: all 0.2s ease;
+}
+.edu-card:hover {
+  border-color: var(--accent);         /* เมื่อเอาเมาส์ชี้ เส้นขอบส้มจะเข้มคมชัดขึ้น */
+  transform: translateY(-2px);         /* กล่องจะขยับลอยขึ้นเล็กน้อยเพื่อเพิ่มมิติ */
+}
 .edu-year{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.5rem}
 .edu-degree{font-family:'DM Serif Display',serif;font-size:1.25rem;margin-bottom:.4rem}
 .edu-school{font-size:.83rem;color:var(--ink-mid)}
@@ -213,6 +231,85 @@ footer{padding:2rem 4rem;border-top:.5px solid var(--line);display:flex;justify-
   .modal-content { max-width: 95%; }
 }
 
+
+/* ══════════════════════════════════════════════════════
+   ADDED: Simplified single-line Skills list
+   (new classes only — .skills-grid/.skill-item rules
+   above remain untouched and unused)
+   ══════════════════════════════════════════════════════ */
+/* ปรับสไตล์ให้เป็นกรอบมน เรียงต่อกัน และตัดขึ้นบรรทัดใหม่อัตโนมัติ */
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding-top: 1.5rem;
+}
+.skill-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(26, 24, 20, 0.04); /* พื้นหลังกรอบสีเข้มขึ้นจากพื้นผิวเล็กน้อย */
+  border: 1px solid var(--line);      /* เส้นขอบกรอบ */
+  border-radius: 6px;                 /* ความโค้งมนของมุมกรอบ */
+  transition: all 0.2s ease;
+}
+.skill-row:hover {
+  background: var(--accent-light);    /* สีพื้นหลังเปลี่ยนเมื่อเอาเมาส์ชี้ */
+  border-color: var(--accent);
+}
+.skill-row-icon {
+  font-size: 1.1rem;
+}
+.skill-row-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+/* ซ่อนคำอธิบายและแถบคะแนนเดิมเพื่อให้แสดงผลเป็นกล่องข้อความสั้นๆ ตามภาพ */
+.skill-row-desc,
+.skill-row-bar {
+  display: none !important;
+}
+
+@media(max-width:860px){
+  .skill-row{grid-template-columns:24px 1fr;grid-template-rows:auto auto;row-gap:.3rem}
+  .skill-row-desc{grid-column:2;font-size:.74rem}
+  .skill-row-bar{grid-column:1 / -1;margin-top:.4rem}
+}
+
+/* ══════════════════════════════════════════════════════
+   ADDED: Simplified Certification cards
+   (new classes only — original .cert-card rules above
+   remain untouched; markup now uses these new classes)
+   ══════════════════════════════════════════════════════ */
+.cert-grid-simple{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.85rem}
+.cert-card-simple{
+  display:flex;align-items:center;gap:1rem;
+  border:.5px solid var(--line);background:var(--white);
+  padding:1.1rem 1.3rem;cursor:pointer;
+  transition:border-color .2s,transform .2s,box-shadow .2s;
+}
+.cert-card-simple:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 6px 18px rgba(196,98,45,.1)}
+.cert-icon-simple{
+  flex-shrink:0;width:38px;height:38px;border-radius:50%;
+  background:var(--accent-light);color:var(--accent);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'DM Serif Display',serif;font-size:1rem;
+}
+.cert-body-simple{flex:1;min-width:0}
+.cert-name-simple{font-size:.88rem;font-weight:500;color:var(--ink);line-height:1.4}
+.cert-meta-simple{font-size:.72rem;color:var(--ink-soft);margin-top:.2rem}
+.cert-arrow-simple{flex-shrink:0;color:var(--accent);opacity:0;transition:opacity .2s;font-size:.85rem}
+.cert-card-simple:hover .cert-arrow-simple{opacity:1}
+.cert-verify-simple{display:inline-block;margin-top:.3rem;font-size:.68rem;color:var(--accent);text-decoration:none;letter-spacing:.04em}
+.cert-verify-simple:hover{text-decoration:underline}
+
+@media(max-width:860px){
+  .cert-grid-simple{grid-template-columns:1fr}
+}
+
 </style>
 </head>
 <body>
@@ -252,18 +349,84 @@ footer{padding:2rem 4rem;border-top:.5px solid var(--line);display:flex;justify-
   </div>
 </section>
 
+<section class="projects-section" id="projects">
+  <div class="section-label" data-i18n="sectionLabel">Portfolio</div>
+  <div class="section-title" data-i18n="sectionTitle">Data Analytics Projects</div>
+  <p style="font-size:.9rem;color:var(--ink-mid);max-width:680px;margin-bottom:2.5rem;line-height:1.8" data-i18n="sectionIntro">
+    End-to-end analytics case studies — from business problem to actionable recommendation.
+  </p>
+  <div id="projects-list"></div>
+</section>
+
 <section class="skills-section" id="skills">
-  <div class="section-label">Capabilities</div>
+  <div class="section-label" data-i18n="navSkills">Capabilities</div>
   <div class="section-title">Technical skill set</div>
-  <div class="skills-grid">
-    <div class="skill-item"><span class="skill-icon">📊</span><div class="skill-name">Power BI</div><div class="skill-desc">Dashboard design, DAX measures, branch monitoring</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:90%"></div></div></div>
-    <div class="skill-item"><span class="skill-icon">📗</span><div class="skill-name">Microsoft Excel</div><div class="skill-desc">Pivot tables, VLOOKUP, financial dashboards</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:95%"></div></div></div>
-    <div class="skill-item"><span class="skill-icon">🗄️</span><div class="skill-name">SQL</div><div class="skill-desc">Querying, window functions, risk analysis</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:75%"></div></div></div>
-    <div class="skill-item"><span class="skill-icon">🐍</span><div class="skill-name">Python</div><div class="skill-desc">Data analysis, clustering, automation</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:65%"></div></div></div>
-    <div class="skill-item"><span class="skill-icon">📐</span><div class="skill-name">R Language</div><div class="skill-desc">Statistical computing — MADT program at NIDA</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:60%"></div></div></div>
-    <div class="skill-item"><span class="skill-icon">📋</span><div class="skill-name">Google Sheets</div><div class="skill-desc">Collaborative reporting and advanced formulas</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:85%"></div></div></div>
-    <div class="skill-item"><span class="skill-icon">🤖</span><div class="skill-name">Generative AI</div><div class="skill-desc">Prompt design, AI for project workflows</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:70%"></div></div></div>
-    <div class="skill-item"><span class="skill-icon">🏢</span><div class="skill-name">ERP System</div><div class="skill-desc">Financial compliance, branch expense management</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:88%"></div></div></div>
+  <div class="skills-list">
+    <div class="skill-row">
+      <span class="skill-row-icon"></span>
+      <span class="skill-row-name">Microsoft Excel</span>
+      <span class="skill-row-desc">Pivot tables, VLOOKUP, financial dashboards</span>
+      <span class="skill-row-bar"><span class="skill-row-fill" style="width:9%"></span></span>
+    </div>
+    <div class="skill-row">
+      <span class="skill-row-icon"></span>
+      <span class="skill-row-name">SQL</span>
+      <span class="skill-row-desc">Querying, window functions, risk analysis</span>
+      <span class="skill-row-bar"><span class="skill-row-fill" style="width:75%"></span></span>
+    </div>
+    <div class="skill-row">
+      <span class="skill-row-icon"></span>
+      <span class="skill-row-name">Power BI</span>
+      <span class="skill-row-desc">Dashboard design, DAX measures, branch monitoring</span>
+      <span class="skill-row-bar"><span class="skill-row-fill" style="width:90%"></span></span>
+    </div>
+    <div class="skill-row">
+      <span class="skill-row-icon"></span>
+      <span class="skill-row-name">Python</span>
+      <span class="skill-row-desc">Data analysis, clustering, automation</span>
+      <span class="skill-row-bar"><span class="skill-row-fill" style="width:65%"></span></span>
+    </div>
+    <div class="skill-row">
+      <span class="skill-row-icon"></span>
+      <span class="skill-row-name">R Language</span>
+      <span class="skill-row-desc">Statistical computing — MADT program at NIDA</span>
+      <span class="skill-row-bar"><span class="skill-row-fill" style="width:60%"></span></span>
+    </div>
+    <div class="skill-row">
+      <span class="skill-row-icon"></span>
+      <span class="skill-row-name">Google Sheets</span>
+      <span class="skill-row-desc">Collaborative reporting and advanced formulas</span>
+      <span class="skill-row-bar"><span class="skill-row-fill" style="width:85%"></span></span>
+    </div>
+    <div class="skill-row">
+      <span class="skill-row-icon"></span>
+      <span class="skill-row-name">Generative AI</span>
+      <span class="skill-row-desc">Prompt design, AI for project workflows</span>
+      <span class="skill-row-bar"><span class="skill-row-fill" style="width:70%"></span></span>
+    </div>
+    <div class="skill-row">
+      <span class="skill-row-icon"></span>
+      <span class="skill-row-name">ERP System</span>
+      <span class="skill-row-desc">Financial compliance, branch expense management</span>
+      <span class="skill-row-bar"><span class="skill-row-fill" style="width:88%"></span></span>
+    </div>
+  </div>
+</section>
+
+<section class="edu-section" id="education">
+  <div class="section-label">Academic background</div>
+  <div class="section-title">Education</div>
+  <div class="edu-grid">
+    <div class="edu-card">
+      <div class="edu-year">2025 – Expected 2027</div>
+      <div class="edu-degree">M.Sc. Applied Statistics (MADT)</div>
+      <div class="edu-school">National Institute of Development Administration (NIDA), Thailand</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-year">2013</div>
+      <div class="edu-degree">B.B.A. in Marketing</div>
+      <div class="edu-school">Rangsit University, Thailand</div>
+    </div>
   </div>
 </section>
 
@@ -321,122 +484,135 @@ footer{padding:2rem 4rem;border-top:.5px solid var(--line);display:flex;justify-
 <section class="cert-section" id="certificates">
   <div class="section-label">Credentials</div>
   <div class="section-title">Certifications</div>
-<div class="cert-grid">
+<div class="cert-grid-simple">
 
-  <div class="cert-card" data-img="Certificate Excel - W3shool .pdf">
-    <div class="cert-badge">W3Schools · Feb 2025</div>
-    <div class="cert-name">Excel Certification</div>
-    <div class="cert-meta">Fundamental knowledge of Microsoft Excel [cite: 11]</div>
-    <a href="https://verify.w3schools.com/1PMXJL5BYG" target="_blank" class="cert-verify" onclick="event.stopPropagation();">↗ Verify certificate</a>
+  <div class="cert-card cert-card-simple" data-img="Certificate Excel - W3shool .pdf">
+    <div class="cert-icon-simple">Ex</div>
+    <div class="cert-body-simple">
+      <div class="cert-name-simple">Excel Certification</div>
+      <div class="cert-meta-simple">W3Schools · Feb 2025</div>
+      <a href="https://verify.w3schools.com/1PMXJL5BYG" target="_blank" class="cert-verify-simple" onclick="event.stopPropagation();">↗ Verify</a>
+    </div>
   </div>
 
-  <div class="cert-card" data-img="Certificate SQL - W3shool .pdf">
-    <div class="cert-badge">W3Schools · Feb 2025</div>
-    <div class="cert-name">Certified SQL Developer</div>
-    <div class="cert-meta">Fundamental knowledge of web development using SQL [cite: 28]</div>
-    <a href="https://verify.w3schools.com/65W6B4CAH" target="_blank" class="cert-verify" onclick="event.stopPropagation();">↗ Verify certificate</a>
+  <div class="cert-card cert-card-simple" data-img="Certificate SQL - W3shool .pdf">
+    <div class="cert-icon-simple">SQL</div>
+    <div class="cert-body-simple">
+      <div class="cert-name-simple">Certified SQL Developer</div>
+      <div class="cert-meta-simple">W3Schools · Feb 2025</div>
+      <a href="https://verify.w3schools.com/65W6B4CAH" target="_blank" class="cert-verify-simple" onclick="event.stopPropagation();">↗ Verify</a>
+    </div>
   </div>
 
-  <div class="cert-card" data-img="Certificate R W3shool.pdf">
-    <div class="cert-badge">W3Schools · Apr 2025</div>
-    <div class="cert-name">Certified R Developer</div>
-    <div class="cert-meta">Passed the W3Schools R certification exam at the Professional level [cite: 45, 49]</div>
-    <a href="https://verify.w3schools.com/1PSVEEEL9Q" target="_blank" class="cert-verify" onclick="event.stopPropagation();">↗ Verify certificate</a>
+  <div class="cert-card cert-card-simple" data-img="Certificate R W3shool.pdf">
+    <div class="cert-icon-simple">R</div>
+    <div class="cert-body-simple">
+      <div class="cert-name-simple">Certified R Developer</div>
+      <div class="cert-meta-simple">W3Schools · Apr 2025</div>
+      <a href="https://verify.w3schools.com/1PSVEEEL9Q" target="_blank" class="cert-verify-simple" onclick="event.stopPropagation();">↗ Verify</a>
+    </div>
   </div>
 
-  <div class="cert-card" data-img="Data Analyst .pdf">
-    <div class="cert-badge">SKILLKAMP &amp; FTI ACADEMY · Mar 2025</div>
-    <div class="cert-name">Data Analyst Digital Skill Test</div>
-    <div class="cert-meta">Passed assessment with total score of 90.00 / 150</div>
+  <div class="cert-card cert-card-simple" data-img="Data Analyst .pdf">
+    <div class="cert-icon-simple">DA</div>
+    <div class="cert-body-simple">
+      <div class="cert-name-simple">Data Analyst Digital Skill Test</div>
+      <div class="cert-meta-simple">SKILLKAMP &amp; FTI Academy · Mar 2025</div>
+    </div>
+    <span class="cert-arrow-simple">↗</span>
   </div>
 
-  <div class="cert-card" data-img="Digital and Performance Marketer.pdf">
-    <div class="cert-badge">SKILLKAMP &amp; FTI ACADEMY · Mar 2025</div>
-    <div class="cert-name">Digital and Performance Marketer Digital Skill Test</div>
-    <div class="cert-meta">Passed assessment with total score of 90.00 / 150</div>
+  <div class="cert-card cert-card-simple" data-img="Digital and Performance Marketer.pdf">
+    <div class="cert-icon-simple">DM</div>
+    <div class="cert-body-simple">
+      <div class="cert-name-simple">Digital &amp; Performance Marketer Test</div>
+      <div class="cert-meta-simple">SKILLKAMP &amp; FTI Academy · Mar 2025</div>
+    </div>
+    <span class="cert-arrow-simple">↗</span>
   </div>
 
-  <div class="cert-card" data-img="Certificate Data Analyst Manifesto.pdf">
-    <div class="cert-badge">DataRockie · Jan 2025</div>
-    <div class="cert-name">Data Analyst Manifesto</div>
-    <div class="cert-meta">Certificate of Graduation — Serial No. cert_jy79cpn3 [cite: 72, 78, 79]</div>
+  <div class="cert-card cert-card-simple" data-img="Certificate Data Analyst Manifesto.pdf">
+    <div class="cert-icon-simple">DA</div>
+    <div class="cert-body-simple">
+      <div class="cert-name-simple">Data Analyst Manifesto</div>
+      <div class="cert-meta-simple">DataRockie · Jan 2025</div>
+    </div>
+    <span class="cert-arrow-simple">↗</span>
   </div>
 
-  <div class="cert-card" data-img="Certificate Prompt Design with Bard AI .pdf">
-    <div class="cert-badge">DataRockie · Jan 2025</div>
-    <div class="cert-name">Prompt Design with Bard AI</div>
-    <div class="cert-meta">Certificate of Graduation — Serial No. cert_xr4hdgj1 [cite: 82, 88, 89]</div>
+  <div class="cert-card cert-card-simple" data-img="Certificate Prompt Design with Bard AI .pdf">
+    <div class="cert-icon-simple">AI</div>
+    <div class="cert-body-simple">
+      <div class="cert-name-simple">Prompt Design with Bard AI</div>
+      <div class="cert-meta-simple">DataRockie · Jan 2025</div>
+    </div>
+    <span class="cert-arrow-simple">↗</span>
   </div>
 
-  <div class="cert-card" data-img="Certificate R Crash Course.pdf">
-    <div class="cert-badge">DataRockie · Jan 2025</div>
-    <div class="cert-name">R Crash Course</div>
-    <div class="cert-meta">Certificate of Completion — Certificate No. cert_5hwx2h12 [cite: 94, 100, 101]</div>
+  <div class="cert-card cert-card-simple" data-img="Certificate R Crash Course.pdf">
+    <div class="cert-icon-simple">R</div>
+    <div class="cert-body-simple">
+      <div class="cert-name-simple">R Crash Course</div>
+      <div class="cert-meta-simple">DataRockie · Jan 2025</div>
+    </div>
+    <span class="cert-arrow-simple">↗</span>
   </div>
 
-  <div class="cert-card" data-img="Certificate Google Sheets Crash Course.pdf">
-    <div class="cert-badge">DataRockie · Dec 2024</div>
-    <div class="cert-name">Google Sheets Crash Course</div>
-    <div class="cert-meta">Certificate of Completion — Certificate No. cert_sdpwz225</div>
+  <div class="cert-card cert-card-simple" data-img="Certificate Google Sheets Crash Course.pdf">
+    <div class="cert-icon-simple">GS</div>
+    <div class="cert-body-simple">
+      <div class="cert-name-simple">Google Sheets Crash Course</div>
+      <div class="cert-meta-simple">DataRockie · Dec 2024</div>
+    </div>
+    <span class="cert-arrow-simple">↗</span>
   </div>
 
-  <div class="cert-card" data-img="Certificate Correlation and Regression for The Curious .pdf">
-    <div class="cert-badge">DataRockie · Feb 2025</div>
-    <div class="cert-name">Correlation and Regression for The Curious</div>
-    <div class="cert-meta">Certificate of Graduation — Serial No. cert_kbnwbzjr [cite: 60, 66, 67]</div>
+  <div class="cert-card cert-card-simple" data-img="Certificate Correlation and Regression for The Curious .pdf">
+    <div class="cert-icon-simple">CR</div>
+    <div class="cert-body-simple">
+      <div class="cert-name-simple">Correlation &amp; Regression for The Curious</div>
+      <div class="cert-meta-simple">DataRockie · Feb 2025</div>
+    </div>
+    <span class="cert-arrow-simple">↗</span>
   </div>
 
-  <div class="cert-card" data-img="Certificate Mini Data Science Bootcamp 2023.pdf">
-    <div class="cert-badge">DataRockie · Aug 2024</div>
-    <div class="cert-name">Mini Data Science Bootcamp 2023</div>
-    <div class="cert-meta">Certificate of Graduation — Serial No. cert_09bfc8l9</div>
+  <div class="cert-card cert-card-simple" data-img="Certificate Mini Data Science Bootcamp 2023.pdf">
+    <div class="cert-icon-simple">DS</div>
+    <div class="cert-body-simple">
+      <div class="cert-name-simple">Mini Data Science Bootcamp 2023</div>
+      <div class="cert-meta-simple">DataRockie · Aug 2024</div>
+    </div>
+    <span class="cert-arrow-simple">↗</span>
   </div>
 
-  <div class="cert-card" data-img="Certificate- Generative AI Ov...iew for Project Managers.pdf">
-    <div class="cert-badge">PMI · Nov 2024</div>
-    <div class="cert-name">Generative AI Overview for Project Managers</div>
-    <div class="cert-meta">Project Management Institute — Technical overview completion certificate</div>
+  <div class="cert-card cert-card-simple" data-img="Certificate- Generative AI Ov...iew for Project Managers.pdf">
+    <div class="cert-icon-simple">AI</div>
+    <div class="cert-body-simple">
+      <div class="cert-name-simple">Generative AI Overview for PMs</div>
+      <div class="cert-meta-simple">PMI · Nov 2024</div>
+    </div>
+    <span class="cert-arrow-simple">↗</span>
   </div>
 
-  <div class="cert-card" data-img="Certificate SQL Crash Course.pdf">
-    <div class="cert-badge">DataRockie · Jan 2025</div>
-    <div class="cert-name">SQL Crash Course</div>
-    <div class="cert-meta">Intensive training module for advanced data extraction and manipulation</div>
+  <div class="cert-card cert-card-simple" data-img="Certificate SQL Crash Course.pdf">
+    <div class="cert-icon-simple">SQL</div>
+    <div class="cert-body-simple">
+      <div class="cert-name-simple">SQL Crash Course</div>
+      <div class="cert-meta-simple">DataRockie · Jan 2025</div>
+    </div>
+    <span class="cert-arrow-simple">↗</span>
   </div>
 
-  <div class="cert-card" data-img="ISO13485 Certifcate.pdf">
-    <div class="cert-badge">Knowledge Center Co., Ltd · Jul 2016</div>
-    <div class="cert-name">ISO 13485 : 2012 Internal Auditor Course</div>
-    <div class="cert-meta">Successfully passed the internal auditor examination for Quality Management Systems</div>
+  <div class="cert-card cert-card-simple" data-img="ISO13485 Certifcate.pdf">
+    <div class="cert-icon-simple">ISO</div>
+    <div class="cert-body-simple">
+      <div class="cert-name-simple">ISO 13485:2012 Internal Auditor</div>
+      <div class="cert-meta-simple">Knowledge Center Co., Ltd · Jul 2016</div>
+    </div>
+    <span class="cert-arrow-simple">↗</span>
   </div>
 
 </div>
-</section>
-
-<section class="edu-section" id="education">
-  <div class="section-label">Academic background</div>
-  <div class="section-title">Education</div>
-  <div class="edu-grid">
-    <div class="edu-card">
-      <div class="edu-year">2025 – Expected 2027</div>
-      <div class="edu-degree">M.Sc. Applied Statistics (MADT)</div>
-      <div class="edu-school">National Institute of Development Administration (NIDA), Thailand</div>
-    </div>
-    <div class="edu-card">
-      <div class="edu-year">2013</div>
-      <div class="edu-degree">B.B.A. in Marketing</div>
-      <div class="edu-school">Rangsit University, Thailand</div>
-    </div>
-  </div>
-</section>
-
-<section class="projects-section" id="projects">
-  <div class="section-label" data-i18n="sectionLabel">Portfolio</div>
-  <div class="section-title" data-i18n="sectionTitle">Data Analytics Projects</div>
-  <p style="font-size:.9rem;color:var(--ink-mid);max-width:680px;margin-bottom:2.5rem;line-height:1.8" data-i18n="sectionIntro">
-    End-to-end analytics case studies — from business problem to actionable recommendation.
-  </p>
-  <div id="projects-list"></div>
 </section>
 
 <section class="contact-section" id="contact">
@@ -483,327 +659,249 @@ footer{padding:2rem 4rem;border-top:.5px solid var(--line);display:flex;justify-
 <script>
 const PROJECTS_DATA = [
 {
-  id:1,
-  en:{
-    title:"FFIA — Fuel & Food Impact Analyzer",
-    problem:"Independent restaurants and delivery-focused F&B businesses in Bangkok suffer hidden losses from fuel price volatility and shifting delivery platform commission (GP) rates. Most owners use static pricing based only on direct ingredient cost, with no visibility into indirect energy-cost pass-through — creating a \"high sales, no profit\" risk or overpricing that drives customers away.",
-    steps:[
-      {label:"Define Analytics Question",items:[
-        "How do retail fuel price volatility and channel mix affect gross margin per menu item?",
-        "How can an AI Agent architecture convert unstructured invoice photos into structured data and combine it with real-time market pricing logic to recommend optimal selling prices?"
+  id: 1,
+  en: {
+    title: "A/B Testing for Ride-Hailing Delivery Pricing Strategy (Hackathon)",
+    problem: "The Ride-Hailing platform needed to determine whether increasing the surge fee during peak hours from 30 THB to 80 THB would cause customers to churn, and identify which user segment would be most heavily impacted.",
+    steps: [
+      { label: "What I Did", items: [
+        "Designed and analyzed an A/B Testing experiment comparing user behaviors between normal pricing and surge pricing environments.",
+        "Evaluated how user segments interact with price hikes based on key factors: income levels, age, and current user fatigue scores."
       ]},
-      {label:"Collect Data",items:[
-        "Real-time retail fuel prices streamed via Bangchak Fuel API",
-        "Unstructured data: photos of receipts and supplier purchase invoices",
-        "Internal structured data: restaurant profiles, delivery platform GP rates, seeded channel mix"
+      { label: "Key Discoveries", items: [
+        "Working-class professionals with a monthly income of 20,000–40,000 THB showed the highest price sensitivity.",
+        "Even when highly exhausted from work, this sensitive segment chose to walk or take public transit rather than paying the increased surge fee.",
+        "Interestingly, 'fatigue' was not a statistically significant factor in decision-making; 'financial constraints' carried far more weight."
       ]},
-      {label:"Data Cleaning",items:[
-        "Vision OCR to convert raw invoice photos into text, with parsing logic to clean and structure into itemized tables",
-        "Standardized ingredient names and units (kg, g, pack)",
-        "Handled missing values and OCR misreads with a review & validation step before storing in PostgreSQL"
+      { label: "Business Recommendation", items: [
+        "Proposed a transition from per-ride surge fees to a monthly subscription model (Subscription Model) to minimize price friction and secure long-term user retention."
       ]},
-      {label:"EDA (Descriptive Stats)",items:[
-        "Monthly spend analysis and top-spend ingredient cards to identify key cost drivers",
-        "Frequency distribution of per-menu profit margin split by dine-in vs. each delivery channel"
+      { label: "Skills & Tools", items: [
+        "A/B Testing • Statistical Analysis • Logistic Regression • Customer Analytics • Pricing Strategy • Business Insight"
       ]},
-      {label:"Statistical / ML Analysis",items:[
-        "Built an Agentic AI architecture on LangGraph (ReAct loop) combined with Gemini 2.5 Flash",
-        "Used the model for natural language intent parsing; the agent routes tasks to deterministic financial tools for precise rule-based calculation"
-      ]},
-      {label:"Model Evaluation",items:[
-        "Ran user prompt testing to evaluate chatbot response behavior",
-        "Validated financial context via business rule templates with an open tool trace for auditability"
-      ]},
-      {label:"Insight Interpretation",items:[
-        "A ฿5 increase in diesel price passes through to delivery and GP costs, dropping some delivery menu margins below break-even even when raw ingredient prices stay flat",
-        "High variation in Thai ingredient naming significantly slowed historical cost-data retrieval"
-      ]},
-      {label:"Business Recommendation",items:[
-        "Enable dynamic repricing / platform-specific pricing to shift excess cost burden to the highest-risk channels only",
-        "Redesign menu bundles — pair high-margin items with high-ingredient-volume items to support overall gross margin"
+      { label: "Business Impact", items: [
+        "Transformed raw customer behavioral data into a tactical pricing strategy and revenue model that balances business growth with optimal user experience."
       ]}
     ]
   },
-  th:{
-    title:"FFIA (Fuel & Food Impact Analyzer)",
-    problem:"ร้านอาหารอิสระและร้านที่เน้นการทำเดลิเวอรี่ในกรุงเทพฯ ประสบปัญหาขาดทุนแฝงเนื่องจากสภาวะวิกฤตราคาน้ำมันและการปรับเปลี่ยนค่าคอมมิชชัน (GP) ของแพลตฟอร์มเดลิเวอรี่ เจ้าของร้านส่วนใหญ่ใช้การตั้งราคาแบบตายตัวจากการคำนวณเฉพาะต้นทุนวัตถุดิบทางตรง โดยไม่สามารถมองเห็นการส่งผ่านต้นทุนพลังงานทางอ้อม ส่งผลให้เกิดความเสี่ยงในลักษณะ \"ขายดีแต่ไม่มีกำไร\" หรือตั้งราคาแพงเกินไปจนเสียลูกค้า",
-    steps:[
-      {label:"Define Analytics Question",items:[
-        "ความผันผวนของราคาน้ำมันขายปลีกและสัดส่วนช่องทางการขายส่งผลกระทับต่ออัตรากำไรขั้นต้นของเมนูอาหารแต่ละรายการอย่างไร?",
-        "จะออกแบบโครงสร้าง AI Agent อย่างไรให้สามารถเปลี่ยนรูปภาพบิลอินวอยซ์ที่ไม่มีโครงสร้าง มาประมวลผลร่วมกับกลไกราคาตลาดแบบจำลองเรียลไทม์ เพื่อให้คำแนะนำราคาขายที่เหมาะสมที่สุดได้?"
+  th: {
+    title: "A/B Testing for Ride-Hailing Delivery Pricing Strategy (Hackathon)",
+    problem: "Ride-Hailing ต้องการทราบว่าการเพิ่มค่าบริการช่วงเร่งด่วน (Surge Fee) จาก 30 บาทเป็น 80 บาท จะทำให้ลูกค้าเลิกใช้บริการหรือไม่ และลูกค้ากลุ่มใดได้รับผลกระทบมากที่สุด",
+    steps: [
+      { label: "สิ่งที่ทำ", items: [
+        "ออกแบบและวิเคราะห์การทดลอง A/B Testing โดยเปรียบเทียบพฤติกรรมของผู้ใช้ระหว่างราคาปกติและราคา Surge",
+        "วิเคราะห์ปัจจัยเชิงลึกด้านรายได้ อายุ และระดับความเหนื่อยล้าของผู้ใช้งานที่มีผลต่อการตัดสินใจ"
       ]},
-      {label:"Collect Data",items:[
-        "ข้อมูลราคาน้ำมันขายปลีกเรียลไทม์จากคู่ค้า (สตรีมผ่าน Bangchak Fuel API)",
-        "ข้อมูลไม่มีโครงสร้าง: รูปภาพถ่ายบิลใบเสร็จรับเงินและอินวอยซ์สั่งซื้อวัตถุดิบจากซัพพลายเออร์",
-        "ข้อมูลเชิงโครงสร้างภายใน: โปรไฟล์ร้านอาหาร, อัตราค่า GP ของแต่ละแพลตฟอร์ม และสัดส่วนยอดขายรายช่องทาง"
+      { label: "สิ่งที่ค้นพบ", items: [
+        "กลุ่มคนทำงานรายได้ 20,000–40,000 บาท มีความอ่อนไหวต่อราคาสูงที่สุด แม้จะเหนื่อยจากการทำงาน พวกเขายังเลือกเดินหรือใช้ขนส่งสาธารณะแทนการจ่ายค่าบริการเพิ่ม",
+        "ความเหนื่อยไม่ได้เป็นปัจจัยสำคัญในการตัดสินใจ แต่ข้อจำกัดทางการเงินมีอิทธิพลมากกว่าอย่างมีนัยสำคัญ"
       ]},
-      {label:"Data Cleaning",items:[
-        "ใช้ Vision OCR แปลงภาพถ่ายบิลวัตถุดิบให้เป็นข้อความ พร้อมเขียนสคริปต์สกัดคำเพื่อจัดกลุ่มเป็นตาราง",
-        "ทำความสะอาดชื่อวัตถุดิบและแปลงหน่วยวัด (กิโลกรัม, กรัม, แพ็ค) ให้เป็นมาตรฐานเดียวกัน",
-        "จัดการข้อมูลสูญหายหรือตัวอักษรที่ OCR อ่านผิด โดยเพิ่มขั้นตอนตรวจสอบความถูกต้องก่อนบันทึกลง PostgreSQL"
+      { label: "Business Recommendation", items: [
+        "เสนอให้เปลี่ยนจากการเก็บค่าบริการ Surge รายครั้ง เป็นระบบสมาชิกแบบรายเดือน (Subscription Model) เพื่อลดแรงต้านด้านราคา และเพิ่มการใช้งานระยะยาว"
       ]},
-      {label:"EDA (Descriptive Stats)",items:[
-        "วิเคราะห์แนวโน้มค่าใช้จ่ายรายเดือนและหาวัตถุดิบที่มียอดซื้อสูงสุดเพื่อระบุตัวแปรหลักที่ขับเคลื่อนต้นทุน",
-        "แจกแจงความถี่และการกระจายตัวของสัดส่วนกำไรรายเมนู แยกตามหน้าร้านเทียบกับเดลิเวอรี่แต่ละเจ้า"
+      { label: "Skills & Tools", items: [
+        "A/B Testing • Statistical Analysis • Logistic Regression • Customer Analytics • Pricing Strategy • Business Insight"
       ]},
-      {label:"Statistical / ML Analysis",items:[
-        "พัฒนาสถาปัตยกรรม Agentic AI บน LangGraph (ReAct Loop) ร่วมกับโมเดล Gemini 2.5 Flash",
-        "ใช้โมเดลประมวลผลคำสั่งภาษาธรรมชาติและแยกแยะเจตนาเชิงธุรกิจ จากนั้น Agent กระจายงานไปยังเครื่องมือคำนวณการเงินที่แม่นยำ"
-      ]},
-      {label:"Model Evaluation",items:[
-        "รัน User Prompt Testing เพื่อประเมินพฤติกรรมการตอบสนองของแชทบอท",
-        "ตรวจสอบความเหมาะสมทางการเงินผ่าน Business Rule Templates และสืบค้นตรรกะย้อนหลังได้ (Open Tool Trace)"
-      ]},
-      {label:"Insight Interpretation",items:[
-        "เมื่อราคาดีเซลเพิ่มขึ้น 5 บาท ต้นทุนแฝงจะส่งผ่านไปยังค่าขนส่งและค่า GP ทำให้มาร์จิ้นเมนูเดลิเวอรี่บางประเภทต่ำกว่าจุดคุ้มทุนทันที",
-        "การจับคู่ชื่อวัตถุดิบภาษาไทยมีความผันแปรสูง ส่งผลต่อความเร็วในการดึงข้อมูลต้นทุนในอดีต"
-      ]},
-      {label:"Business Recommendation",items:[
-        "เปิดใช้งาน Dynamic Repricing หรือตั้งราคาเฉพาะแพลตฟอร์ม เพื่อผลักภาระต้นทุนเฉพาะช่องทางที่เสี่ยง",
-        "ปรับโครงสร้างชุดเมนู โดยจับคู่สินค้ามาร์จิ้นสูงกับสินค้าที่มียอดซื้อวัตถุดิบหลักสูง เพื่อพยุงกำไรขั้นต้นโดยรวม"
+      { label: "ผลกระทบทางธุรกิจ (Impact)", items: [
+        "เปลี่ยนข้อมูลพฤติกรรมลูกค้าให้เป็นกลยุทธ์ด้านราคาและโมเดลรายได้ที่ตอบโจทย์ทั้งการเติบโตของธุรกิจและประสบการณ์ของผู้ใช้งาน"
       ]}
     ]
   }
 },
 {
-  id:2,
-  en:{
-    title:"Hello Ride — AOT Intelligent Sync Platform",
-    problem:"Taxi dispatch at Suvarnabhumi Airport suffers chronic platform bottlenecks because the system is reactive — only calling cars once a passenger reaches the queue. Inbound passenger waves surge every 15 minutes, pushing average wait time to 44.9 minutes at peak and destroying an estimated ฿1.44 billion/year in economic value, per World Bank VTTS standards.",
-    steps:[
-      {label:"Define Analytics Question",items:[
-        "Can external signals (flight schedules, delays, weather) accurately forecast Passenger Wait Time (PWT) 45 minutes in advance?",
-        "How can a proactive dispatch & AI matching agent be designed to keep service levels (SLA) within standard?"
+  id: 2,
+  en: {
+    title: "FFIA — Fuel & Food Impact Analyzer",
+    problem: "Many restaurants suffer hidden losses ('high sales, no profit') because they calculate prime costs based on raw ingredients alone, ignoring the severe impact of hidden costs like volatile fuel prices, platform commission (GP) rates, and supply logistics—leading to mispricing and bleeding margins.",
+    steps: [
+      { label: "What I Did", items: [
+        "Developed FFIA (Fuel & Food Impact Analyzer), an Agentic AI Financial Advisor system that automatically integrates live fuel prices, ingredient costs, sales, and platform GP rates.",
+        "Built capabilities to monitor menu-level profitability, track dynamic cost risks in real-time, and recommend optimized pricing structures, promotional models, and strategic menu bundles."
       ]},
-      {label:"Collect Data",items:[
-        "Live flight schedule and delay signals streamed via OpenSky Network API",
-        "Weather index data streamed via NASA POWER API",
-        "Internal structured data: taxi supply index and baggage-claim QR scan history"
+      { label: "Key Discoveries", items: [
+        "Proved that hidden costs are the critical drivers behind restaurant margin depletion, particularly for delivery-heavy businesses heavily affected by fuel fluctuations and platform GP updates.",
+        "Discovered that multiple high-volume menu items yielded significantly lower margins than owners predicted, despite strong and continuous sales growth."
       ]},
-      {label:"Data Cleaning",items:[
-        "Converted raw timestamps from multiple sources into a unified local time bucket (bucket_time_local)",
-        "Integrated and synchronized signals of differing frequencies into hybrid 15-minute time-band feature grids, totaling 22 model features"
+      { label: "Skills Demonstrated", items: [
+        "Agentic AI • Business Analytics • Financial Analytics • OCR • Data Engineering • PostgreSQL • LangGraph • Gemini AI • Product Strategy • Decision Intelligence"
       ]},
-      {label:"EDA (Descriptive Stats)",items:[
-        "Analyzed the relationship between inbound passenger volume and taxi queue distribution",
-        "Identified a clear \"Reactive Gap\": every wide-body landing triggers a demand spike ~45 minutes later, pushing PWT to critical levels"
-      ]},
-      {label:"Statistical / ML Analysis",items:[
-        "Trained an XGBoost regression model (ML forecast time-series engine) to predict the target variable avg_wait_min (PWT)",
-        "Built an AI Matching Agent scoring system using weighted logic: 30% ETA + 25% vehicle capacity + 20% queue priority + 15% acceptance rate + 10% PWT urgency"
-      ]},
-      {label:"Model Evaluation",items:[
-        "Ran 7 statistical hypothesis tests, including non-parametric tests (Mann-Whitney U, Kruskal-Wallis) to validate data distribution",
-        "Achieved an F1-score +19.2pp above a naive baseline, with Tier 3 alert precision of 88.9%"
-      ]},
-      {label:"Insight Interpretation",items:[
-        "Flight Arrival Pressure and Delay Signal carried the highest feature importance driving airport queue congestion",
-        "Switching dispatch matching modes based on forecasted PWT levels clearly broke the vicious cycle of platform queue overflow"
-      ]},
-      {label:"Business Recommendation",items:[
-        "Deploy an Airport OPS Cockpit Dashboard to pre-position vehicles 45 minutes ahead (T−45 min)",
-        "Implement automatic mode switching: PWT ≤15 min → Normal (FCFS); 15–30 min → Priority Matching; >30 min → Critical Priority Matching (pull all highest-ETA vehicles to clear the bottleneck immediately)"
+      { label: "Business Impact", items: [
+        "Transforms complex cost structures into instantly actionable business intelligence—such as channel-specific repricing and gross margin-driven bundles.",
+        "Helps restaurants prevent profit leaks, improve decision precision, and run operational strategies based on hard data rather than intuition.",
+        "One-Line Pitch: Built an AI-powered financial advisor that transforms hidden cost signals into real-time pricing and profitability decisions, helping restaurants protect margins in a volatile delivery economy."
       ]}
     ]
   },
-  th:{
-    title:"Hello Ride (AOT Intelligent Sync Platform)",
-    problem:"ระบบจัดสรรและปล่อยรถแท็กซี่ ณ ท่าอากาศยานสุวรรณภูมิ ประสบปัญหาคอขวดสะสมในชานชาลาเนื่องจากระบบทำงานแบบ \"ตั้งรับ\" คือเริ่มเรียกรถเมื่อผู้โดยสารเดินมาถึงคิวแล้วเท่านั้น ขณะที่คลื่นผู้โดยสารขาเข้าไหลบ่ามาทุก 15 นาที ทำให้ช่วงเร่งด่วนผู้โดยสารต้องรอคิวเฉลี่ยถึง 44.9 นาที ทำลายมูลค่าทางเศรษฐกิจ (ตามเกณฑ์ VTTS ของ World Bank) สูงถึง 1.44 พันล้านบาทต่อปี",
-    steps:[
-      {label:"Define Analytics Question",items:[
-        "ปัจจัยภายนอก (ตารางบิน, ดีเลย์, สภาพอากาศ) สามารถพยากรณ์ระยะเวลารอคอยเฉลี่ยของผู้โดยสาร (PWT) ล่วงหน้า 45 นาทีได้แม่นยำหรือไม่?",
-        "จะสร้างระบบคำนวณคะแนนและจับคู่ยานพาหนะเชิงรุก (Proactive Dispatch & AI Matching Agent) อย่างไรให้รักษาระดับ SLA ได้?"
+  th: {
+    title: "FFIA (Fuel & Food Impact Analyzer)",
+    problem: "ร้านอาหารจำนวนมากกำลังเผชิญปัญหา “ขายดีแต่กำไรหาย” เพราะคำนวณต้นทุนจากวัตถุดิบเพียงอย่างเดียว แต่ไม่เห็นผลกระทบของต้นทุนแฝง เช่น ราคาน้ำมัน ค่าขนส่ง และค่า GP ของแพลตฟอร์มเดลิเวอรี่ ทำให้ตั้งราคาผิดพลาดและสูญเสียกำไรโดยไม่รู้ตัว",
+    steps: [
+      { label: "สิ่งที่ทำ", items: [
+        "พัฒนา FFIA ระบบ Agentic AI Financial Advisor ที่เชื่อมข้อมูลราคาน้ำมัน ข้อมูลวัตถุดิบ ยอดขาย และค่า GP แบบอัตโนมัติ",
+        "วิเคราะห์กำไรรายเมนู ติดตามความเสี่ยงด้านต้นทุนแบบเรียลไทม์ และแนะนำกลยุทธ์ด้านราคา โปรโมชั่น และการจัดชุดเมนูที่เหมาะสม"
       ]},
-      {label:"Collect Data",items:[
-        "สตรีมข้อมูลตารางเที่ยวบินสดและสัญญาณการล่าช้าผ่าน OpenSky Network API",
-        "สตรีมข้อมูลดัชนีสภาพอากาศผ่าน NASA POWER API",
-        "ข้อมูลเชิงโครงสร้างภายใน: สถิติปริมาณแท็กซี่ในคลังและประวัติการสแกน QR Code ตั๋วคิวบริเวณจุดรับกระเป๋า"
+      { label: "สิ่งที่ค้นพบ", items: [
+        "พบว่า “ต้นทุนแฝง” เป็นปัจจัยสำคัญที่ทำให้ร้านอาหารสูญเสียกำไร โดยเฉพาะร้านเดลิเวอรี่ที่ได้รับผลกระทบจากราคาน้ำมันและค่า GP",
+        "ค้นพบว่าหลายเมนูมีกำไรต่ำกว่าที่เจ้าของร้านคาดการณ์ไว้อย่างมาก แม้ยอดขายจะเติบโตอย่างต่อเนื่อง"
       ]},
-      {label:"Data Cleaning",items:[
-        "แปลงข้อมูลสัญญาณเวลาดิบจากแหล่งต่างๆ ให้อยู่ในพิกัดเวลาท้องถิ่นเดียวกัน (bucket_time_local)",
-        "รวมและซิงโครไนซ์สัญญาณข้อมูลที่มีความถี่ต่างกันเข้าสู่ตารางคุณลักษณะผสมแบ่งช่วงเวลาละ 15 นาที รวม 22 Model Features"
+      { label: "Skills Demonstrated", items: [
+        "Agentic AI • Business Analytics • Financial Analytics • OCR • Data Engineering • PostgreSQL • LangGraph • Gemini AI • Product Strategy • Decision Intelligence"
       ]},
-      {label:"EDA (Descriptive Stats)",items:[
-        "วิเคราะห์ความสัมพันธ์ระหว่างปริมาณผู้โดยสารขาเข้ากับการกระจายตัวของคิวรถแท็กซี่",
-        "พบสภาวะ \"Reactive Gap\" ชัดเจน — เครื่องบิน Wide-body แลนดิ้งทำให้ความต้องการรถพุ่งสูงขึ้นหลังจากนั้น 45 นาที จนระดับ PWT แตะจุดวิกฤต"
-      ]},
-      {label:"Statistical / ML Analysis",items:[
-        "พัฒนาและฝึกสอนโมเดล XGBoost Regression เพื่อทำนาย avg_wait_min (PWT)",
-        "พัฒนา AI Matching Agent Scoring ด้วยตรรกะถ่วงน้ำหนัก: 30% ETA + 25% Vehicle Capacity + 20% Queue Priority + 15% Acceptance Rate + 10% PWT Urgency"
-      ]},
-      {label:"Model Evaluation",items:[
-        "ทดสอบสมมติฐานทางสถิติ 7 ข้อ รวมการทดสอบแบบนอนพาราเมตริก เช่น Mann-Whitney U และ Kruskal-Wallis Test",
-        "โมเดลทำ F1-Score สูงกว่า Naive Baseline ถึง +19.2pp และมีความแม่นยำของ Tier 3 Alert สูงถึง 88.9%"
-      ]},
-      {label:"Insight Interpretation",items:[
-        "สัญญาณ Flight Arrival Pressure และ Delay Signal มีน้ำหนักความสำคัญสูงสุดในการขับเคลื่อนความแออัดของคิวรถ",
-        "การเปลี่ยนโหมดจับคู่รถแบบแปรผันตามระดับ PWT ช่วยตัดวงจรคิวยาวล้นชานชาลาได้อย่างชัดเจน"
-      ]},
-      {label:"Business Recommendation",items:[
-        "ติดตั้ง Airport OPS Cockpit Dashboard เพื่อสั่งการให้รถเคลื่อนตัวล่วงหน้า 45 นาที (T−45 min)",
-        "ใช้กลไกเปลี่ยนโหมดอัตโนมัติ: PWT ≤15 นาที ใช้ Normal (FCFS); 15–30 นาที ปรับเป็น Priority Matching; >30 นาที เข้าสู่ Critical Priority Matching"
+      { label: "ผลกระทบทางธุรกิจ", items: [
+        "FFIA สามารถแปลงข้อมูลต้นทุนที่ซับซ้อนให้กลายเป็น คำแนะนำเชิงธุรกิจที่นำไปใช้ได้ทันที เช่น การปรับราคาตามแพลตฟอร์ม การออกแบบโปรโมชั่น และการจัดชุดเมนูเพื่อรักษาอัตรากำไร",
+        "ช่วยให้ร้านอาหารลดการรั่วไหลของกำไร เพิ่มความแม่นยำในการตัดสินใจ และบริหารธุรกิจด้วยข้อมูลแทนการคาดเดา",
+        "One-Line Pitch: Built an AI-powered financial advisor that transforms hidden cost signals into real-time pricing and profitability decisions, helping restaurants protect margins in a volatile delivery economy."
       ]}
     ]
   }
 },
 {
-  id:3,
-  en:{
-    title:"AI-Enabled Knowledge Center — The New Work Experience",
-    problem:"Large organizations face severe knowledge loss (brain drain) when expert employees leave, because most operational knowledge is tacit and person-dependent — crisis decision logic, client relationship nuance. Traditional culture often causes knowledge hoarding due to reward structures and job-security fear, pushing new-hire onboarding past 6 months before reaching full productivity.",
-    steps:[
-      {label:"Define Analytics Question",items:[
-        "How can unstructured collaboration logs from former experts be extracted and transformed into role-based structured knowledge?",
-        "How can Generative AI build a role-based AI digital twin to act as an intelligent advisor for new employees — without adding workload to current staff?"
+  id: 3,
+  en: {
+    title: "Hello Ride — AOT Intelligent Sync Platform",
+    problem: "Suvarnabhumi Airport serves over 62 million passengers annually, but its reactive taxi dispatch system created severe platform bottlenecks whenever arriving flight waves surged—forcing passengers to wait an average of 44.9 minutes and destroying ฿1.44 billion/year in economic value.",
+    steps: [
+      { label: "What I Did", items: [
+        "Designed and developed Hello Ride, an AI-powered platform leveraging live flight schedules, delay metrics, weather conditions, and baggage-claim QR scan signals to predict passenger demand 45 minutes in advance.",
+        "Built a predictive Time-Series Forecasting Engine using XGBoost and designed an intelligent proactive dispatch matching engine to clear platform queues before congestion accumulates."
       ]},
-      {label:"Collect Data",items:[
-        "Unstructured historical data: internal email history, team chat logs, and meeting recordings/transcripts from key cases",
-        "Structured data: standard operating manuals and historical project outcome reports"
+      { label: "Key Discoveries", items: [
+        "Proved that baggage-claim QR scan metrics combined with flight data predict queue surges significantly better than traditional on-site observations.",
+        "Achieved an 88.9% precision score for critical tier-3 queue alerts and reduced passenger wait time forecasting errors by 42%."
       ]},
-      {label:"Data Cleaning",items:[
-        "Filtered and cleaned raw text — noise reduction, removal of irrelevant personal data, restructuring conversation history into chronological event streams",
-        "Extracted and grouped problem-solving logic, trade-off factors, and complaint-handling context from experts"
+      { label: "Skills Demonstrated", items: [
+        "Machine Learning (XGBoost) • Predictive Analytics • Operations Analytics • AI Agent Design • Statistical Analysis • Product Strategy • Transportation Analytics • Data Integration"
       ]},
-      {label:"EDA (Descriptive Stats)",items:[
-        "Mapped the knowledge network to find which topics were the most frequently searched knowledge hubs",
-        "Found traditional knowledge management failed due to being manual, effort-heavy, hard to search, and rarely reusable in practice"
-      ]},
-      {label:"Statistical / ML Analysis",items:[
-        "Applied Generative AI and LLM persona processing",
-        "Built a \"Digital Twin Agent / Ask the Legend\" chatbot, trained on an expert's response patterns, reasoning logic, and language style to create a realistic role-based persona"
-      ]},
-      {label:"Model Evaluation",items:[
-        "Audited responses against real historical business cases to measure content accuracy and language behavior control",
-        "Checked for hallucination control and set contextual verification thresholds for organizational data safety"
-      ]},
-      {label:"Insight Interpretation",items:[
-        "New hires can access \"tacit knowledge\" — never written in manuals — immediately through scenario-based Q&A, retaining 100% of knowledge in the organization even after the expert leaves",
-        "Switching to proactive knowledge delivery before problems arise reduced repeated decision-making errors significantly"
-      ]},
-      {label:"Business Recommendation",items:[
-        "Restructure HR knowledge architecture: retire static manual documentation in favor of direct daily chat/email integration into a cloud knowledge base",
-        "Build positive incentives: shift culture from knowledge hoarding toward rewarding employees who train their own AI Digital Twin to the highest quality before role transition"
+      { label: "Business Impact", items: [
+        "Shifted airport taxi management from Reactive Operations to Proactive/Predictive Operations.",
+        "Significantly minimized passenger wait times, optimized fleet allocation efficiency, and established the foundation for data-driven Smart Airport Operations.",
+        "One-Line Pitch: Built an AI-powered airport taxi orchestration platform that predicts passenger demand 45 minutes in advance, enabling proactive vehicle dispatch and reducing airport congestion before it happens."
       ]}
     ]
   },
-  th:{
-    title:"AI-Enabled Knowledge Center (The New Work Experience)",
-    problem:"องค์กรธุรกิจขนาดใหญ่เผชิญภาวะสูญเสียความรู้อย่างรุนแรงเมื่อพนักงานระดับผู้เชี่ยวชาญลาออก (Brain Drain) เนื่องจากองค์ความรู้ส่วนใหญ่เป็นความรู้เชิงปฏิบัติที่ซ่อนเร้นและยึดติดกับตัวบุคคล วัฒนธรรมองค์กรแบบดั้งเดิมมักเกิดปัญหากักตุนความรู้จากระบบรางวัลและความกลัว ส่งผลให้พนักงานใหม่ต้องใช้เวลา Onboarding ยาวนานกว่า 6 เดือนกว่าจะสร้าง Productivity ได้",
-    steps:[
-      {label:"Define Analytics Question",items:[
-        "จะสกัดและแปลงข้อมูลพฤติกรรมการสื่อสารที่ไม่มีโครงสร้างของอดีตผู้เชี่ยวชาญ มาจัดทำเป็นโครงสร้างความรู้ระดับตำแหน่งงานได้อย่างไร?",
-        "จะประยุกต์ใช้ Generative AI ในการทำแบบจำลองบุคลิกภาพประจำบทบาท เพื่อเป็นที่ปรึกษาอัจฉริยะให้พนักงานใหม่ได้อย่างไรโดยไม่เพิ่มภาระงานพนักงานเก่า?"
+  th: {
+    title: "Hello Ride: AOT Intelligent Sync Platform",
+    problem: "สนามบินสุวรรณภูมิมีผู้โดยสารกว่า 62 ล้านคนต่อปี แต่ระบบเรียกแท็กซี่ยังทำงานแบบ “ตั้งรับ” ทำให้เกิดคอขวดในช่วงที่ผู้โดยสารเดินทางออกจากอาคารเป็นระลอก ส่งผลให้ผู้โดยสารรอรถเฉลี่ย 44.9 นาที และสร้างความสูญเสียทางเศรษฐกิจกว่า 1.44 พันล้านบาทต่อปี",
+    steps: [
+      { label: "สิ่งที่ทำ", items: [
+        "ออกแบบและพัฒนา Hello Ride แพลตฟอร์ม AI ที่ใช้ข้อมูลเที่ยวบินแบบเรียลไทม์ สภาพอากาศ และสัญญาณ QR Check-in ของผู้โดยสาร เพื่อคาดการณ์ความต้องการรถล่วงหน้า 45 นาที",
+        "พัฒนา Machine Learning Model (XGBoost) และ AI Matching Engine สำหรับจัดสรรรถเชิงรุกก่อนเกิดปัญหาคิวสะสม"
       ]},
-      {label:"Collect Data",items:[
-        "ข้อมูลไม่มีโครงสร้างเชิงประวัติศาสตร์: ประวัติอีเมลภายในองค์กร, Team Chat Logs และไฟล์เสียง/วิดีโอพร้อม Transcript จากการประชุมเคสสำคัญ",
-        "ข้อมูลเชิงโครงสร้าง: คู่มือมาตรฐานการปฏิบัติงานและประวัติรายงานผลลัพธ์โครงการ"
+      { label: "สิ่งที่ค้นพบ", items: [
+        "พบว่าข้อมูลการสแกน QR Code และตารางเที่ยวบินสามารถทำนายความแออัดของคิวได้แม่นยำกว่าการรอดูสถานการณ์หน้างานอย่างมีนัยสำคัญ",
+        "ระบบสามารถแจ้งเตือนสถานการณ์คิววิกฤตล่วงหน้าได้ด้วยความแม่นยำ 88.9% และลดความคลาดเคลื่อนในการพยากรณ์เวลารอได้ 42%"
       ]},
-      {label:"Data Cleaning",items:[
-        "กรองและทำความสะอาดข้อความดิบ คัดแยกข้อมูลขยะ ลบข้อมูลส่วนบุคคลที่ไม่เกี่ยวข้อง แปลงเป็นรูปแบบลำดับเหตุการณ์",
-        "สกัดและจัดกลุ่มตรรกะการแก้ปัญหา ปัจจัยการค้า และบริบทการจัดการข้อร้องเรียนของผู้เชี่ยวชาญ"
+      { label: "Skills Demonstrated", items: [
+        "Machine Learning (XGBoost) • Predictive Analytics • Operations Analytics • AI Agent Design • Statistical Analysis • Product Strategy • Transportation Analytics • Data Integration"
       ]},
-      {label:"EDA (Descriptive Stats)",items:[
-        "วิเคราะห์โครงสร้างเครือข่ายความรู้เพื่อค้นหาหัวข้อที่เป็นจุดศูนย์รวมความรู้ที่พนักงานสืบค้นบ่อยที่สุด",
-        "พบว่าเครื่องมือจัดเก็บความรู้แบบดั้งเดิมล้มเหลวเนื่องจากใช้แรงงานคนมากเกินไป ค้นหายาก และนำกลับมาใช้ซ้ำได้จริงน้อย"
-      ]},
-      {label:"Statistical / ML Analysis",items:[
-        "ประยุกต์ใช้ Generative AI และการประมวลผล LLM Persona",
-        "พัฒนาระบบ \"Digital Twin Agent / Ask the Legend\" โดยป้อนพฤติกรรมการตอบสนอง ตรรกะความคิด และสไตล์ภาษาของผู้เชี่ยวชาญเข้าไปสร้างจิตจำลองบทบาทงาน"
-      ]},
-      {label:"Model Evaluation",items:[
-        "สอบทานคำตอบกับกรณีศึกษาจริงทางธุรกิจในอดีตเพื่อวัดความถูกต้องของเนื้อหาและคุมพฤติกรรมทางภาษา",
-        "ตรวจสอบปัญหา Hallucination และตั้งเกณฑ์ประเมินความปลอดภัยของข้อมูลองค์กร"
-      ]},
-      {label:"Insight Interpretation",items:[
-        "พนักงานใหม่เข้าถึง \"Tacit Knowledge\" ที่ไม่เคยถูกเขียนในคู่มือได้ทันทีผ่านคำถามจำลองสถานการณ์ ความรู้คงอยู่กับองค์กร 100% แม้บุคคลลาออก",
-        "การเปลี่ยนระบบให้ \"เสิร์ฟ\" ความรู้เชิงรุกก่อนปัญหาเกิด ช่วยลดความผิดพลาดซ้ำซากของทีมงานลงได้มาก"
-      ]},
-      {label:"Business Recommendation",items:[
-        "ปรับสถาปัตยกรรมการจัดการบุคลากร ยกเลิกคู่มือเอกสารแบบเดิม เชื่อมข้อมูลแชทและอีเมลประจำวันเข้าสู่คลังความรู้คลาวด์โดยตรง",
-        "สร้างแรงจูงใจเชิงบวก เปลี่ยนวัฒนธรรมจากการกักตุนความรู้ มาเป็นรางวัลให้พนักงานที่เทรน AI Digital Twin ของตนเองให้เก่งที่สุดก่อนโยกย้ายตำแหน่ง"
+      { label: "ผลกระทบทางธุรกิจ", items: [
+        "เปลี่ยนกระบวนการบริหารแท็กซี่สนามบินจาก Reactive Operations เป็น Predictive Operations ช่วยลดเวลารอของผู้โดยสาร",
+        "เพิ่มประสิทธิภาพการจัดสรรรถ สนับสนุนเป้าหมายยกระดับประสบการณ์ผู้โดยสารของ AOT และสร้างรากฐานสำหรับ Smart Airport Operations ในอนาคต",
+        "One-Line Pitch: Built an AI-powered airport taxi orchestration platform that predicts passenger demand 45 minutes in advance, enabling proactive vehicle dispatch and reducing airport congestion before it happens."
       ]}
     ]
   }
 },
 {
-  id:4,
-  en:{
-    title:"Elderly Care Center Application — Best Care Team",
-    problem:"Thailand has fully entered an aging society, yet the caregiver market remains fragmented and low-trust. Families lack a systematic platform to verify criminal background checks, license levels, and fair pricing — making it costly and time-consuming to find a quality caregiver.",
-    steps:[
-      {label:"Define Analytics Question",items:[
-        "How can a scoring model and cloud architecture be designed to provide caregiver sourcing, matching, and real-time geo-safety tracking reliably and securely?",
-        "Is the platform financially viable, and what return-on-investment metrics can it generate?"
+  id: 4,
+  en: {
+    title: "Elderly Care Center: Cloud Architecture & Database Design",
+    problem: "The rapid transition into an aging society has created critical caregiver shortages and low marketplace trust. Families struggle with long wait times and an absence of verified professional backgrounds, heavily disrupting the productivity of working-class relatives.",
+    steps: [
+      { label: "Core Cloud Strategy", items: [
+        "Designed a production-ready cloud architecture on Google Cloud Platform (GCP) to replace on-premise setups, introducing an auto-scaling model to minimize upfront infrastructure budget.",
+        "Configured real-time triggers to support live location streams (GPS Tracking), SOS emergency signals, and intelligent caregiver-to-patient matching."
       ]},
-      {label:"Collect Data",items:[
-        "Caregiver profile and professional license database",
-        "Real-time GPS snapshots from mobile devices",
-        "Transaction and booking history logs",
-        "Legal documentation and consent/privacy data"
+      { label: "Database & Storage Design", items: [
+        "Structured Data: Handled bookings, transaction metrics, and secure payment logs via Cloud SQL (PostgreSQL).",
+        "Unstructured Data: Organized background checks, verified healthcare licenses, and profile photos via Cloud Storage.",
+        "Semi-Structured Data: Maintained real-time message history, chat logs, and active GPS coordinates using Firestore (JSON)."
       ]},
-      {label:"Data Cleaning",items:[
-        "Built input validation via Cloud Functions to screen ID card and age data",
-        "Applied advanced PII masking on the database to protect personal data per PDPA regulatory standards"
+      { label: "Technical Architecture", items: [
+        "Frontend & Security: Firebase Authentication, Cloud Functions, and strict IAM permission definitions.",
+        "Backend Operations: Cloud Run services managed efficiently behind an API Gateway.",
+        "Data Pipeline & Analytics: Automated workflows using Pub/Sub, Dataflow, and Airflow (Cloud Composer) streaming data directly into Google BigQuery for Looker Studio KPI reporting."
       ]},
-      {label:"EDA (Descriptive Stats)",items:[
-        "Analyzed spatial density of elderly-care demand versus available caregiver supply",
-        "Modeled OPEX budget trends on Google Cloud Platform (GCP) — Cloud SQL, Cloud Run, Pub/Sub, BigQuery — to control monthly cloud costs by service"
+      { label: "Skills & Project Focus", items: [
+        "Cloud Architecture Design (GCP) • Relational & NoSQL Database Schema • Real-Time Data Pipelines • Security & PDPA Regulatory Compliance • Enterprise Scalability • Financial Reporting & Looker Studio"
       ]},
-      {label:"Statistical / ML Analysis",items:[
-        "Built a Geospatial AI Matching Agent scoring algorithm to rank the most suitable caregivers using weighted criteria: distance, location, specialized nursing skills, and review scores",
-        "Designed an AI Health Alert Engine to analyze health signal trends and auto-trigger risk notifications"
-      ]},
-      {label:"Model Evaluation",items:[
-        "Used Google BigQuery Analytics for KPI analysis and SLA evaluation of caregiver-matching speed",
-        "Ran financial modeling simulations to assess risk and break-even point of the application"
-      ]},
-      {label:"Insight Interpretation",items:[
-        "Modern GCP infrastructure (Cloud Run + Cloud Firestore together) enabled smooth live GPS tracking and emergency panic-button processing with minimal latency",
-        "Deep financial viability confirmed: NPV of ฿14.9 million, ROI of 60%, and payback within just 5 months"
-      ]},
-      {label:"Business Recommendation",items:[
-        "Launch to B2C market via subscription + take-rate on bookings, leading with maximum-safety positioning",
-        "Accelerate ecosystem growth with a \"Verified Caregiver Badge\" for caregivers who pass criminal background checks and partner-institution skill training — building the trust core to customer purchase decisions"
+      { label: "Executive Summary", items: [
+        "Demonstrated a complete end-to-end integration of commercial enterprise requirements into a secure, nationwide digital application capable of scaling seamlessly to meet national demand."
       ]}
     ]
   },
-  th:{
-    title:"Elderly Care Center Application (Best Care Team)",
-    problem:"ประเทศไทยก้าวเข้าสู่สังคมผู้สูงอายุอย่างเต็มรูปแบบ แต่ตลาดแรงงานผู้ดูแลผู้สูงอายุยังกระจัดกระจายและขาดความน่าเชื่อถือ ครอบครัวผู้สูงวัยขาดแพลตฟอร์มตัวกลางที่เป็นระบบในการตรวจประวัติอาชญากรรม ใบอนุญาต และอัตราค่าบริการที่เป็นธรรม ส่งผลให้การเข้าถึงผู้ดูแลคุณภาพใช้เวลาและต้นทุนสูง",
-    steps:[
-      {label:"Define Analytics Question",items:[
-        "จะออกแบบโมเดลคำนวณคะแนนและสถาปัตยกรรมคลาวด์อย่างไร เพื่อจัดหา คัดเลือกจับคู่ผู้ดูแล และติดตามความปลอดภัยทางภูมิศาสตร์แบบเรียลไทม์ได้อย่างมีเสถียรภาพ?",
-        "แพลตฟอร์มนี้มีความคุ้มค่าทางการเงินเชิงธุรกิจอย่างไร และจะสร้างผลตอบแทนการลงทุนได้เท่าไหร่?"
+  th: {
+    title: "Elderly Care Center: Cloud Architecture & Database",
+    problem: "แพลตฟอร์มจับคู่ผู้ดูแลผู้สูงอายุกับครอบครัว เพื่อแก้ปัญหาการเข้าถึงบริการดูแลและลดภาระของลูกหลานวัยทำงานที่ต้องเสียเวลาลางานเพื่อพาผู้สูงอายุไปโรงพยาบาล ส่งผลกระทบต่อทั้งคุณภาพชีวิตและประสิทธิภาพการทำงานของครอบครัว",
+    steps: [
+      { label: "แนวคิดหลักและการทำงานบนคลาวด์", items: [
+        "เลือกใช้ Cloud (GCP) แทนการตั้งเซิร์ฟเวอร์เอง เพื่อให้ระบบสามารถขยายตัวได้อัตโนมัติ และประหยัดต้นทุนด้วยโมเดล Pay-as-you-go",
+        "ออกแบบโครงสร้างรองรับการใช้งานแบบ Real-Time สำคัญ เช่น GPS Tracking, SOS Alert และกลไก AI Matching"
       ]},
-      {label:"Collect Data",items:[
-        "ข้อมูลโปรไฟล์พนักงานและใบอนุญาตวิชาชีพ",
-        "สัญญาณพิกัดภูมิศาสตร์แบบสดจากอุปกรณ์เคลื่อนที่",
-        "ประวัติพฤติกรรมการทำธุรกรรมและการจองงาน",
-        "ข้อมูลเอกสารทางกฎหมายและการให้ความยินยอม"
+      { label: "การจัดเก็บข้อมูล (Database Design)", items: [
+        "Structured Data: ข้อมูลการจองและการชำระเงิน จัดเก็บผ่าน Cloud SQL (PostgreSQL)",
+        "Unstructured Data: รูปภาพ เอกสาร และใบอนุญาตวิชาชีพผู้ดูแล จัดเก็บผ่าน Google Cloud Storage",
+        "Semi-Structured Data: ข้อความแชทและตำแหน่ง GPS แบบเรียลไทม์ จัดเก็บผ่าน Firestore (JSON)"
       ]},
-      {label:"Data Cleaning",items:[
-        "พัฒนาระบบตรวจสอบความถูกต้องของข้อมูลนำเข้าผ่าน Cloud Functions เพื่อคัดกรองข้อมูลบัตรประชาชนและอายุ",
-        "ดำเนินการปกปิดข้อมูลส่วนบุคคลขั้นสูง (PII Masking) เพื่อรักษาความเป็นส่วนตัวตามมาตรฐาน PDPA"
+      { label: "สถาปัตยกรรมระบบ (Architecture)", items: [
+        "ความปลอดภัย: Firebase Authentication, Cloud Functions, และการควบคุมสิทธิ์ผ่าน IAM",
+        "ระบบประมวลผลหลังบ้าน: ประมวลผลบน Cloud Run และบริหารจัดการผ่าน API Gateway",
+        "ระบบ Pipeline & วิเคราะห์ข้อมูล: วางระบบ Pub/Sub, Dataflow และ Airflow (Cloud Composer) ส่งข้อมูลเข้า BigQuery และแสดงผลบน Looker Studio"
       ]},
-      {label:"EDA (Descriptive Stats)",items:[
-        "วิเคราะห์ความหนาแน่นเชิงพื้นที่ของความต้องการบริการเทียบกับสัดส่วนผู้ดูแลที่พร้อมรับงาน",
-        "ทำแบบจำลองวิเคราะห์งบประมาณ OPEX บน Google Cloud Platform (Cloud SQL, Cloud Run, Pub/Sub, BigQuery) เพื่อควบคุมค่าใช้จ่ายคลาวด์รายเดือน"
+      { label: "สิ่งที่โปรเจกต์นี้แสดงให้เห็น (Skills)", items: [
+        "ออกแบบ Cloud Architecture ระดับ Production และออกแบบฐานข้อมูลรองรับทั้ง Transactional และ Analytics Workloads",
+        "ความเข้าใจเชิงลึกเกี่ยวกับ Real-Time Systems, Data Pipeline, มาตรฐานความปลอดภัย และ PDPA Compliance"
       ]},
-      {label:"Statistical / ML Analysis",items:[
-        "พัฒนา Geospatial AI Matching Agent Scoring เพื่อจัดอันดับผู้ดูแลที่เหมาะสมที่สุด โดยถ่วงน้ำหนักจากระยะทาง พิกัด ทักษะเฉพาะทาง และคะแนนรีวิว",
-        "ออกแบบ AI Health Alert Engine เพื่อวิเคราะห์สัญญาณสุขภาพและแจ้งเตือนความเสี่ยงอัตโนมัติ"
+      { label: "บทสรุปเชิงธุรกิจ (Executive Summary)", items: [
+        "เป็นการออกแบบแพลตฟอร์มดิจิทัลที่สามารถรองรับการเติบโตในระดับประเทศ พร้อมระบบข้อมูลและโครงสร้างพื้นฐานที่รองรับการขยายตัวในอนาคตได้อย่างครบวงจร"
+      ]}
+    ]
+  }
+},
+{
+  id: 5,
+  en: {
+    title: "Turn Cancellations into Maximum Profit (AI Revenue Recovery for Hotels)",
+    problem: "Hotels bleed massive amounts of revenue due to booking cancellation rates reaching nearly 40%. A critical driver is 'Ghost Booking' (speculative bookings held to exploit market price changes), which leaves rooms empty last-minute and causes millions of Euros in annual financial damage.",
+    steps: [
+      { label: "What I Did", items: [
+        "Developed an End-to-End AI platform utilizing an XGBoost model to proactively flag high-risk reservation cancellations well in advance.",
+        "Engineered an automated Dynamic Pricing framework paired with AI Agents to instantly re-list canceled rooms back onto the market at optimized market-driven rates."
       ]},
-      {label:"Model Evaluation",items:[
-        "ใช้ Google BigQuery Analytics ทำ KPI Analytics และประเมิน SLA ของความเร็วในการจับคู่ผู้ดูแล",
-        "ทดสอบจำลองตัวเลขทางการเงินเพื่อประเมินความเสี่ยงและจุดคุ้มทุนของแอปพลิเคชัน"
+      { label: "Key Discoveries", items: [
+        "Discovered that Ghost Bookings accounted for 87.2% of all cancellations, displaying predictable behaviors such as bulk group blocks and abnormal patterns within Non-Refundable packages.",
+        "Identified that real-time market price gaps between the hotel and its competitors served as a major trigger for cancellations."
       ]},
-      {label:"Insight Interpretation",items:[
-        "โครงสร้างพื้นฐาน GCP ยุคใหม่ (Cloud Run + Cloud Firestore) ช่วยให้สตรีมข้อมูลตำแหน่งสดและปุ่มแจ้งเหตุฉุกเฉินทำงานราบรื่นด้วยค่าความหน่วงต่ำสุด",
-        "การันตีความคุ้มค่าทางการเงิน: NPV สูงถึง 14.9 ล้านบาท ROI 60% และคืนทุนได้ภายในเพียง 5 เดือน"
+      { label: "Skills & Methodologies", items: [
+        "Machine Learning (XGBoost) • Revenue Management • Dynamic Pricing • AI Agent Workflow Design • Decision Automation • Data-Driven Strategy"
       ]},
-      {label:"Business Recommendation",items:[
-        "เปิดตัวสู่ตลาด B2C ด้วยระบบสมัครสมาชิกและหัก Take-rate จากยอดจอง ชูจุดขายด้านความปลอดภัยขั้นสูงสุด",
-        "เร่งการเติบโตของ Ecosystem ด้วย \"Verified Caregiver Badge\" สำหรับผู้ดูแลที่ผ่านการตรวจประวัติอาชญากรรมและอบรมทักษะจากสถาบันพันธมิตร เพื่อสร้างความเชื่อใจในการตัดสินใจซื้อบริการ"
+      { label: "Business Impact", items: [
+        "Turned lost cancellation rooms into fresh revenue opportunities—boosting specific room resale value to 120–130% of normal rates.",
+        "Drove an overall gross revenue uplift of 20–30% for the property.",
+        "Drastically reduced case handling cycles from 24 hours down to under 30 minutes, saving over 85% of human operational workload."
+      ]}
+    ]
+  },
+  th: {
+    title: "Turn Cancellations into Maximum Profit (AI Revenue Recovery for Hotels)",
+    problem: "โรงแรมสูญเสียรายได้จากการยกเลิกการจองสูงถึงเกือบ 40% โดยเฉพาะ Ghost Booking (การจองกั๊กห้องเพื่อเก็งกำไร) ทำให้ห้องว่างถูกปล่อยทิ้งและสูญเสียรายได้หลายล้านยูโรต่อปี",
+    steps: [
+      { label: "สิ่งที่ทำ", items: [
+        "พัฒนาแพลตฟอร์ม AI แบบ End-to-End โดยใช้ XGBoost ตรวจจับการจองที่มีความเสี่ยงยกเลิกล่วงหน้า",
+        "สร้างระบบ Dynamic Pricing & AI Agents เพื่อนำห้องที่ถูกยกเลิกกลับมาขายใหม่ในราคาที่เหมาะสมตามอุปสงค์ตลาดแบบอัตโนมัติ"
+      ]},
+      { label: "สิ่งที่ค้นพบ", items: [
+        "พบว่า Ghost Booking คิดเป็น 87.2% ของการยกเลิกทั้งหมด และมีรูปแบบพฤติกรรมที่คาดการณ์ได้ชัดเจน เช่น การจองแบบกลุ่มและความผิดปกติของแพ็กเกจ Non-Refundable",
+        "ช่องว่างราคากับคู่แข่งในตลาดเป็นปัจจัยสำคัญที่กระตุ้นให้เกิดความเสี่ยงในการยกเลิกห้องพัก"
+      ]},
+      { label: "สิ่งที่ได้จากโปรเจกต์ (Skills)", items: [
+        "ใช้ Machine Learning (XGBoost) แก้ปัญหาธุรกิจจริงด้าน Revenue Management",
+        "ออกแบบ AI Agent Workflow ตั้งแต่กระบวนการ Prediction → Decision → Execution",
+        "ฝึกตรรกะการคิดแบบ Data-Driven เชื่อมโยงผลวิเคราะห์สถิติให้เป็น Business Actions ที่สร้าง Revenue Uplift ได้จริง"
+      ]},
+      { label: "ผลกระทบทางธุรกิจ (Business Impact)", items: [
+        "เปลี่ยนห้องว่างจากการยกเลิกให้เป็นโอกาสสร้างรายได้ โดยเพิ่มมูลค่าการขายห้องพักได้ 120–130% ของราคาปกติ",
+        "เพิ่มรายได้รวมของโรงแรมได้ถึง 20–30%, ลดเวลาการจัดการเคสลงจาก 24 ชั่วโมงเหลือไม่เกิน 30 นาที และลดภาระงานของพนักงานได้มากกว่า 85%"
       ]}
     ]
   }
